@@ -13,7 +13,6 @@ Vaihtoehtoja:
 - samaa mieltä vs eri mieltä
 - vaihtoehto1 vs vaihtoehto2
 
-
 Vastattuaan luoja pääsee vertailemaan tuloksia.
 Kyselyihin muut voi vastata kutsulinkillä.
 
@@ -31,10 +30,8 @@ Kysymykset, kyselyt, vastaukset tallennetaan asianmukaisiin tietokantoihin.
 
 Moderointitilassa sisältöä voi poistaa sivulta.
 
-(ehkä) Jokaisella kyselyllä on elinikä jonka jälkeen ne siivotaan.
-(ehkä) Slaideri jolla voi portaattomasti valita vastauksensa
-(ehkä) Kyselyt voisi löytää linkkien lisäksi myös tunnisteella
-(ehkä) Kysymyksiin voi liittää kuvia
-
-
-
+Ominaisuuksia joiden tekemistä voi harkita:
+- Jokaisella kyselyllä on elinikä jonka jälkeen ne siivotaan.
+- Slaideri jolla voi portaattomasti valita vastauksensa
+- Kyselyt voisi löytää linkkien lisäksi myös tunnisteella
+- Kysymyksiin voi liittää kuvia
