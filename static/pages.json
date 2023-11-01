@@ -1,0 +1,32 @@
+{
+    "title": "Kyselmä",
+    "pages": { 
+        "info": {
+            "URL": "pages/info.html",
+            "menuIcon": "kyselma.svg",
+            "menuName": "Kyselmä"
+        },
+        "spacer-1": {
+        },
+        "create": {
+            "pageTitle": "Luo kysely",
+            "URL": "pages/create.html",
+            "menuName": "Luo"
+        },
+        "answer": {
+            "pageTitle": "Vastaa kyselyyn",
+            "URL": "pages/answer.html",
+            "menuName": "Vastaa"
+        },
+        "analyse": {
+            "pageTitle": "Tutki vastauksia",
+            "URL": "pages/analyse.html",
+            "menuName": "Tutki"
+        },
+        "moderate": {
+            "pageTitle": "Moderoi sivustoa",
+            "URL": "pages/moderate.html",
+            "menuName": "Moderoi"
+        }
+    }
+}

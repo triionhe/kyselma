@@ -26,7 +26,7 @@ Vertailussa voi poimia
 - lisäksi mille tahansa parille voidaan laskea yhtenäisyysprosentti
 
 
-Kysymykset, kyselyt, vastaukset tallennetaan asianmukaisiin tietokantoihin.
+Kysymykset, kyselyt, vastaukset tallennetaan asianmukaisiin tauluihin.
 
 Moderointitilassa sisältöä voi poistaa sivulta.
 

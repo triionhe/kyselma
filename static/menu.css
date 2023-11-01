@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+:root {
+    --menuColor: #000;
+    --menuBgColor: #fee;
+    --menuColorActive: #000;
+    --menuBgActive: #c88;
+    --menuColorHover: #fff;
+    --menuBgHover: #48f;
+    
+    --menuHeight: 1.5em;
+    --menuFontSize: 2;
+    --menuHamburgerHeight: 1.25em;
+    --menuHamburgerFontSize: 2.4;
+}
+
+.menuItem {
+    height: var(--menuHeight);
+    display: flex;
+    align-items: center;
+    background-color: var(--menuBgColor);
+    font-size: calc(var(--menuFontSize)*100%);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.menuItem:hover {
+    background-color: var(--menuBgHover);
+}
+.menuItemActive, .menuItemActive:hover {
+    background-color: var(--menuBgActive);
+}
+.menuTitle, .menuTitle:hover, .menuSpacer, .menuSpacer:hover {
+    background-color: var(--menuBgColor);
+    cursor: unset;
+}
+.menuSpacer, .menuTitle { display: none; }
+
+.menuIcon {
+    width: calc(var(--menuHeight)*0.9);
+    height: calc(var(--menuHeight)*0.9);
+    padding: calc(var(--menuHeight)*0.05);
+}
+.menuIcon > a > img {
+    width: 100%;
+    height: 100%;
+}
+.menuText {
+    padding-left: calc(var(--menuHeight)/4);
+}
+.menuText > a {
+    color: var(--menuColor);
+    text-decoration: none;
+}
+.menuItem:hover > .menuText > a {
+    color: var(--menuColorHover);
+}
+.menuItemActive > .menuText > a, .menuItemActive:hover > .menuText > a {
+    color: var(--menuColorActive);
+}
+#menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+}
+.menuHidden { display: none !important }
+
+#hamburgerMenu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    display: flex;
+    z-index: 1;
+    width: var(--menuHamburgerHeight);
+    height: var(--menuHamburgerHeight);
+    font-size: calc(var(--menuHamburgerFontSize)*100%);
+    align-items: center;
+    justify-content: center;
+    background-color: var(--menuBgActive);
+    color: var(--menuColorActive);
+}
+#hamburgerMenu::before { content: "☰"; }
+#spaceBeforePage { height: 0; }
+
+.page { display: none }
+.pageActive { display: unset }
+
+@media only screen and (min-width: 64em) {
+    #hamburgerMenu { display: none; }
+    #menu { position: fixed; }
+    #spaceBeforePage { height: calc(var(--menuHeight)*var(--menuFontSize)); }
+    .menuHidden, .menuSpacer, .menuTitle { display: flex !important }
+    .menuSpacer { flex-grow: 2; }
+    .menuText {
+        padding-left: calc(var(--menuHeight)/2);
+        padding-right: calc(var(--menuHeight)/2);
+    }
+}
