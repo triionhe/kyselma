@@ -1,6 +1,21 @@
 # kyselma
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
+DONE:
+- Tietokantayhteys
+- Nimierkkitaulu
+- Nimimerkin käyttöönotto ja tarkistus
+- Virheviestien kuljetus
+- Nettisivurunko
+
+TODO:
+- Kysymystaulu
+- Kyselytaulu
+- Kysymyksen lisäys
+- Kysymyksen näyttö
+- Ulkoasu
+...
+
 Tarkoitus on luoda sivu jossa voi luoda kysymyksiä ja kyselyitä, joita
 täytetään anonyymillä nimimerkillä.
 
