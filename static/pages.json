@@ -27,6 +27,11 @@
             "pageTitle": "Moderoi sivustoa",
             "URL": "pages/moderate.html",
             "menuName": "Moderoi"
+        },
+        "nick": {
+            "pageTitle": "Anna nimimerkki",
+            "URL": "pages/nick.html",
+            "hidden": "yes"
         }
     }
 }

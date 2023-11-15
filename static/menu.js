@@ -76,7 +76,7 @@ createMenu = () => {
     menuNav.className = 'menuHidden'
 
     Object.keys(pages).forEach(p => {
-
+    
         const entryDiv = document.createElement('div')
         entryDiv.className = 'menuItem'
         entryDiv.id = `${p}_menuEntry`
@@ -91,6 +91,8 @@ createMenu = () => {
         if ( url === "" ) entryDiv.className += 
                 name === "" ? ' menuSpacer' : ' menuTitle'
         else entryDiv.onclick = () => window.location.hash = p;
+
+        if ( pages[p].hidden ) entryDiv.style.display = 'none';
 
         menuNav.append( entryDiv )
     })
@@ -114,7 +116,7 @@ toggleMenu = () => {
     if (menuNav.className === '') window.scrollTo(0,0)
 }
 
-hashToPage = () => {
+hashToPage = async () => {
     const p = !document.location.hash
         ? Object.keys(pages)[0] : document.location.hash.substr(1) in pages
         ? document.location.hash.substr(1) : Object.keys(pages)[0]
@@ -130,15 +132,19 @@ hashToPage = () => {
     else document.getElementById(`${currentPage}_page`).className = 'page'
     pageElement.className = 'page pageActive'
     
-    if ( !pageElement.loaded ) fetch( pages[p].URL )
+    if ( !pageElement.loaded ) await fetch( pages[p].URL )
         .then( response => {
             if (!response.ok) return `ERROR loading "${pages[p].URL}"!`
             return response.text()
         } )
         .then( text => {
-            pageElement.innerHTML = text
-            pageElement.loaded = true
-        } )
+            pageElement.innerHTML = text;
+            pageElement.loaded = true;
+        } ) 
+    if ( pageElement.innerHTML.startsWith("redirect = ") ) {
+        pageElement.loaded = false;
+        window.location.assign( pageElement.innerHTML.slice( 11 ) );
+    }
     document.getElementById(`${currentPage}_menuEntry`)
         .className = 'menuItem'
     document.getElementById(`${p}_menuEntry`)

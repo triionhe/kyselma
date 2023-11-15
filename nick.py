@@ -16,7 +16,7 @@ def new_nick():
         session["id"] = D.user_new(nick)
         return redirect("/")
     session["alert"]="Nick in not created: "+msg
-    return redirect("/#create")
+    return redirect("/#nick")
 
 
 def invalid_nick(nick):
