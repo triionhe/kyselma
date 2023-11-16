@@ -1,6 +1,13 @@
 # kyselma
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
+TO GET IT RUNNING:
+Install flask, psycopg, postresql, sqlalchemy (as in course material)
+$ git clone https://github.com/triionhe/kyselma.git
+$ psql -U postgres < SCHEMA.sql (Be careful with '-U postgres' or edit app.py!)
+$ SECRET_KEY=923987295 flask run
+
+
 DONE:
 - Voi lisätä kyselyn
 - Kysymyksen mukana lisätään vastaus

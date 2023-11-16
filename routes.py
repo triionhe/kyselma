@@ -10,8 +10,14 @@ def get_alert():
     return ""
     
 def get_nick():
-    if "id" in session.keys():
-        return D.user_get_nick(session["id"])
+    while "id" in session.keys():
+        nick = D.user_get_nick(session["id"])
+        if not nick:
+            del session['id']
+            if "quiz_id" in session.keys():
+                del session['quiz_id']
+            break
+        return nick
     return "(ei nimimerkkiä)"
 
 @app.route("/")
@@ -37,7 +43,7 @@ def create():
 
 @app.route("/pages/answer.html")
 def answer():
-    if "id" not in session:
+    if "id" not in session.keys():
         return "redirect = #nick"
     return render_template("answer.html", 
             alert=get_alert(),
@@ -46,7 +52,7 @@ def answer():
 
 @app.route("/pages/analyse.html")
 def analyse():
-    if "id" not in session:
+    if "id" not in session.keys():
         return "redirect = #nick"
     return render_template("analyse.html",
             alert=get_alert(),

@@ -21,7 +21,8 @@ def user_get_nick(id):
     sql = "SELECT nick \
             FROM users \
             WHERE id=(:id);"
-    return db.session.execute(text(sql), { "id":id }).fetchone()[0]
+    result = db.session.execute(text(sql), { "id":id }).fetchone()
+    return result[0] if result else result
 
 def user_exists(nick):
     sql = "SELECT COUNT(id) \
