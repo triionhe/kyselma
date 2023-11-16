@@ -9,3 +9,5 @@ db.init_app(app)
 
 import routes
 import nick
+import quiz
+import question

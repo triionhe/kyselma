@@ -1,0 +1,9 @@
+<div id="alertbox">{{ alert }}</div>
+<form action="/new_question" method="POST">
+Kysymys:<input type="text" name="question" rows="1" cols="120"><br>
+<input type="text" name="neg_ans" rows="1" cols="40"> : valinnat : 
+<input type="text" name="pos_ans" rows="1" cols="40"><br>
+<input type="range" min="-1000" max="1000" value="0"
+        class="slider" name="answer" class="answerSlider"><br>
+<input type="submit" value="Lähetä">
+</form>

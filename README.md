@@ -2,6 +2,12 @@
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
 DONE:
+- Voi lisätä kyselyn
+- Kysymyksen mukana lisätään vastaus
+- Kysymyksen lisäys
+- Vastaustaulu
+- Kysymystaulu
+- Kyselytaulu
 - Tietokantayhteys
 - Nimierkkitaulu
 - Nimimerkin käyttöönotto ja tarkistus
@@ -9,11 +15,13 @@ DONE:
 - Nettisivurunko
 
 TODO:
-- Kysymystaulu
-- Kyselytaulu
-- Kysymyksen lisäys
+- Kyselyn luomisen näyttö
+- Kyselyn lukitseminen vastattavaksi
 - Kysymyksen näyttö
 - Ulkoasu
+- Moderointi
+- Vastausten anto
+- Vastausten tarkistelu
 ...
 
 Tarkoitus on luoda sivu jossa voi luoda kysymyksiä ja kyselyitä, joita

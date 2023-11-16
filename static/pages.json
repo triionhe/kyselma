@@ -32,6 +32,16 @@
             "pageTitle": "Anna nimimerkki",
             "URL": "pages/nick.html",
             "hidden": "yes"
+        },
+        "question": {
+            "pageTitle": "Lisää kysymys",
+            "URL": "pages/question.html",
+            "hidden": "yes"
+        },
+        "quiz": {
+            "pageTitle": "Rakenna kysely",
+            "URL": "pages/quiz.html",
+            "hidden": "yes"
         }
     }
 }
