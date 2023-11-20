@@ -145,6 +145,16 @@ hashToPage = async () => {
         pageElement.loaded = false;
         window.location.assign( pageElement.innerHTML.slice( 11 ) );
     }
+
+    // https://plnkr.co/edit/MMegiu by Allen Kim
+    Array.from(pageElement.querySelectorAll("script")).forEach(oldScript => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes).forEach(attr =>
+                newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+
     document.getElementById(`${currentPage}_menuEntry`)
         .className = 'menuItem'
     document.getElementById(`${p}_menuEntry`)

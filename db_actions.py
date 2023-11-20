@@ -76,3 +76,13 @@ def answer_new(user_id, question_id, answer):
             "created":int(time())
         } )
     db.session.commit()
+
+def get_questions(quiz_id):
+    sql = "SELECT q.id, q.question, q.neg_answer, q.pos_answer, a.answer \
+            FROM questionaires quiz \
+            JOIN questions q ON q.id = ANY(quiz.questionset) \
+            JOIN answers a ON a.user_id = quiz.creator_id \
+            WHERE a.question_id = q.id AND quiz.id = (:quiz_id);"
+    return db.session.execute( text(sql), { "quiz_id":quiz_id } ).fetchall()
+
+    

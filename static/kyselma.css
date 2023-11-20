@@ -1,0 +1,28 @@
+
+.kysQuestion {
+    display: flex;
+    flex-direction: column;
+    max-width: 25em;    
+}
+.kysText { 
+    align-self: center;
+}
+.kysScale {
+    display: flex;
+}
+.kysScaleSpacer {
+    flex-grow: 1;    
+}
+.kysNegative input {
+    width: 100%;
+}
+.kysPositive input {
+    width: 100%;
+}
+.kysCreateText input {
+    width: 100%;
+    resize: horizontal;
+}
+.kysCreateText { 
+    width: 100%;
+}

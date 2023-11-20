@@ -11,3 +11,4 @@ import routes
 import nick
 import quiz
 import question
+import get_questions
