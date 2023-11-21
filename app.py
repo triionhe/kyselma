@@ -11,4 +11,5 @@ import routes.base
 import routes.set.nick
 import routes.set.quiz
 import routes.set.question
+import routes.set.answers
 import routes.get.quiz

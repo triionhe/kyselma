@@ -28,24 +28,30 @@ createQuestionDiv = ( question ) => {
 
     questionDiv.appendChild( npDiv )
 
-    const aDiv = document.createElement('input')
-    aDiv.className = 'kysAnswer'
-    aDiv.type = 'range'
-    aDiv.min = 0
-    aDiv.max = 999
-    aDiv.disabled = true
-    aDiv.value = question.a
-    questionDiv.appendChild( aDiv )
+    const aInput = document.createElement('input')
+    aInput.className = 'kysAnswer'
+    aInput.type = 'range'
+    aInput.min = 0
+    aInput.max = 999
+    aInput.value = 500
+    aInput.name = question.i
+    questionDiv.appendChild( aInput )
     
     return questionDiv
 }
 
 createQuestions = () => {
-    const questionsDiv = document.getElementById('questions')
-    questionsDiv.className = 'kysQuestions'
+    const kysForm = document.getElementById('questionForm')
+    const questionsDiv = document.createElement('div')
     Object.keys(questions).forEach(k => { 
         questionsDiv.appendChild( createQuestionDiv( questions[k] ) )
     })
+    kysForm.appendChild( questionsDiv )
+    const submitInput = document.createElement('input')
+    submitInput.type='submit'
+    submitInput.value='Vastaa kyselyyn'
+    submitInput.className = 'kysSubmitAnswers'
+    kysForm.appendChild( submitInput )
 }
 
 loadQuestions = async() => {

@@ -85,4 +85,15 @@ def get_questions(quiz_id):
             WHERE a.question_id = q.id AND quiz.id = (:quiz_id);"
     return db.session.execute( text(sql), { "quiz_id":quiz_id } ).fetchall()
 
+
+def get_user_answer(user_id, question_id):
+    sql = "SELECT answer \
+            FROM answers \
+            WHERE question_id = (:question_id)  AND user_id = (:user_id);"
+    result = db.session.execute( text(sql), { 
+            'question_id': question_id,
+            'user_id': user_id 
+            } ).fetchone()
+    return result[0] if result else result
+
     
