@@ -3,7 +3,7 @@ from flask import render_template, session, request, redirect
 import db_actions as D
 
 
-@app.route("/new_nick",methods=["POST"])
+@app.route("/set/nick",methods=["POST"])
 def new_nick():
     nick = request.form["nick"]
     if "id" in session.keys():

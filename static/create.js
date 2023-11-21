@@ -50,7 +50,7 @@ createQuestions = () => {
 }
 
 loadQuestions = async() => {
-    await fetch( 'get_questions' )
+    await fetch( 'get/quiz_creator' )
         .then( response => response.json() )
         .then( json => questions = json )
         .catch( error => {

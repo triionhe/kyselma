@@ -13,7 +13,7 @@ def validate_question(question):
         return False
     return True
 
-@app.route("/new_question",methods=["POST"])
+@app.route("/set/question",methods=["POST"])
 def new_question():
     question = request.form["question"]
     neg_ans = request.form["neg_ans"]

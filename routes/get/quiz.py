@@ -3,7 +3,7 @@ from flask import render_template, session, request, redirect, jsonify
 import db_actions as D
 
 
-@app.route("/get_questions",methods=["GET"])
+@app.route("/get/quiz_creator",methods=["GET"])
 def get_questions_by_id():
     if "quiz_id" not in session.keys():
         return "KUOLETTAVA: Sessiota / kyselmä id:tä ei ole"

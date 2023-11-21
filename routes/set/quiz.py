@@ -3,7 +3,7 @@ from flask import render_template, session, request, redirect
 import db_actions as D
 
 
-@app.route("/new_quiz",methods=["POST"])
+@app.route("/set/quiz",methods=["POST"])
 def new_quiz():
     if not "id" in session.keys():
         session["alert"]="Tarvitset nimimerkin loudaksesi"
