@@ -2,11 +2,17 @@
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
 TO GET IT RUNNING:
-- Install flask, psycopg, postresql, sqlalchemy (as in course material)
+	Install postgresql for local user & get it running
+- $ wget https://github.com/hy-tsoha/local-pg/raw/master/pg-install.sh
+- $ bash pg-install.sh
+- $ postrgres &
+	Clone the source, get tables ready & install poetry dependencies
 - $ git clone https://github.com/triionhe/kyselma.git
-- $ psql -U postgres < SCHEMA.sql (Be careful with '-U postgres' or edit app.py!)
-- $ SECRET_KEY=923987295 flask run
-
+- $ cd kyselma
+- $ psql < SCHEMA.sql
+- $ poetry install
+	Start the app in poetry virtual environment
+- $ SQLALCHEMY_DATABASE_URI="postgresql:///$USER" SECRET_KEY=923987295 poetry run flask run
 
 DONE:
 - Voi lisätä kyselyn
