@@ -2,13 +2,17 @@
 .kysQuestion {
     display: flex;
     flex-direction: column;
-    max-width: 25em;    
+    max-width: 25em;
+    padding: 0.5em;
+    border: 0.15em #fed solid;
 }
 .kysText { 
     align-self: center;
 }
 .kysScale {
     display: flex;
+    width: 100%;
+    resize: horizontal;
 }
 .kysScaleSpacer {
     flex-grow: 1;    
@@ -25,4 +29,64 @@
 }
 .kysCreateText { 
     width: 100%;
+}
+
+.kysNick::before {
+  content: "Olet:";
+  padding-right: 0.4em;
+}
+
+.kysNick {
+    border: 0.1em solid;
+    padding: 0.4em;
+    position: fixed;
+    top: 100vh;
+    left: 100vw;
+    transform: translate(-100%, -100%);
+    display: block;
+    background-color: #DAF;
+}
+
+.kysAlert {
+    border: 0.4em solid;
+    padding: 0.8em;
+    display: block;
+    background-color: #F55;
+    border-top-color: #F97;
+    border-left-color: #F96;
+    border-right-color: #F13;
+    border-bottom-color: #F14;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
+.kysTotal {
+    align-self: center;
+    font-size: xxx-large;
+}
+
+.kysSelectU1 {
+  background: #faa;
+}
+
+.kysSelectU2 {
+  background: #aaf;
+}
+
+.kysUser1::-webkit-slider-runnable-track, .kysUser1::-moz-range-track {
+  background: #faa;
+}
+
+.kysUser2::-webkit-slider-runnable-track, .kysUser2::-moz-range-track {
+  background: #aaf;
+}
+
+.kysUser1::-webkit-slider-thumb, .kysUser1::-moz-range-thumb {
+  background: #c00;
+}
+
+.kysUser2::-webkit-slider-thumb, .kysUser2::-moz-range-thumb {
+  background: #00c;
 }

@@ -132,7 +132,7 @@ hashToPage = async () => {
     else document.getElementById(`${currentPage}_page`).className = 'page'
     pageElement.className = 'page pageActive'
     
-    if ( !pageElement.loaded ) await fetch( pages[p].URL )
+    if ( pages[p].dynamic || !pageElement.loaded ) await fetch( pages[p].URL )
         .then( response => {
             if (!response.ok) return `ERROR loading "${pages[p].URL}"!`
             return response.text()
@@ -141,10 +141,10 @@ hashToPage = async () => {
             pageElement.innerHTML = text;
             pageElement.loaded = true;
         } ) 
-    if ( pageElement.innerHTML.startsWith("redirect = ") ) {
+/*    if ( pageElement.innerHTML.startsWith("redirect = ") ) {
         pageElement.loaded = false;
         window.location.assign( pageElement.innerHTML.slice( 11 ) );
-    }
+    }*/
 
     // https://plnkr.co/edit/MMegiu by Allen Kim
     Array.from(pageElement.querySelectorAll("script")).forEach(oldScript => {

@@ -1,24 +1,7 @@
 from app import app
-from flask import render_template,session
+from flask import render_template,session,request,redirect
 import db_actions as D
-
-def get_alert():
-    if "alert" in session:
-        alert = session["alert"]
-        del session["alert"]
-        return f"{alert}"
-    return ""
-    
-def get_nick():
-    while "id" in session.keys():
-        nick = D.user_get_nick(session["id"])
-        if not nick:
-            del session['id']
-            if "quiz_id" in session.keys():
-                del session['quiz_id']
-            break
-        return nick
-    return "(ei nimimerkkiä)"
+from routes.tools import rows2dicts, get_alert, get_nick
 
 @app.route("/")
 def index():
@@ -29,50 +12,40 @@ def info():
     return render_template("info.html",
             alert=get_alert()
         )
-
-@app.route("/pages/create.html")
-def create():
-    if "id" not in session.keys():
-        return "redirect = #nick"
-    if "quiz_id" not in session.keys():
-        return "redirect = #quiz"
-    return render_template("create.html", 
-            alert=get_alert(),
-            nick=get_nick()
-        )
-
-@app.route("/pages/answer.html")
-def answer():
-    if "id" not in session.keys():
-        return "redirect = #nick"
-    return render_template("answer.html", 
-            alert=get_alert(),
-            nick=get_nick()
-        )
-
-@app.route("/pages/analyse.html")
-def analyse():
-    if "id" not in session.keys():
-        return "redirect = #nick"
-    return render_template("analyse.html",
-            alert=get_alert(),
-            nick=get_nick()
-        )
-
-@app.route("/pages/moderate.html")
-def moderate():
-    return render_template("moderate.html",
+        
+@app.route("/pages/nick.html")
+def nick():
+    return render_template("nick.html",
             alert=get_alert()
         )
 
-@app.route("/pages/nick.html")
-def nick():
-    return render_template("nick.html", alert=get_alert() )
+@app.route("/set/nick",methods=["POST"])
+def new_nick():
+    if "id" in session.keys():
+        session["alert"]="Sinulla on jo nimimerkki. Käytä sitä."
+        return redirect("/")
+    if "nick" not in request.form or request.form["nick"]=="":
+        session["alert"]="Nimimerkkiä ei voi asettaa ilman nimimerkkiä."
+        return redirect("/#nick")
+    else:
+        nick = request.form["nick"]
+    if len(nick) < 4:
+        session["alert"]="Nimimerkki on liian lyhyt"
+        return redirect("/#nick")
+    if not nick.isalnum():
+        session["alert"]="Nimimerkissä saa olla vain kirjaimia ja numeroita."
+        return redirect("/#nick")
+    if D.user_exists(nick):
+        session["alert"]="Nimimerkki jonka olet ottamassa on jo varattu."
+        return redirect("/#nick")
+    session["id"] = D.user_new(nick)
+    return redirect("/")
 
-@app.route("/pages/question.html")
-def question():
-    return render_template("question.html", alert=get_alert() )
 
-@app.route("/pages/quiz.html")
-def build():
-    return render_template("quiz.html", alert=get_alert() )
+
+#@app.route("/pages/moderate.html")
+#def moderate():
+#    return render_template("moderate.html",
+#            alert=get_alert()
+#        )
+

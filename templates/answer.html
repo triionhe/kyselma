@@ -1,5 +1,21 @@
-<script src="answer.js"></script>
-<div id="nickbox">{{ nick }}</div>
-<div id="alertbox">{{ alert }}</div>
-<h1>answer NOW!</h1>
-<form id=questionForm action="/set/answers" method="POST"></form>
+{% include 'base.html' %}
+
+Vastaa kyselmään "{{ link }}":
+
+<form class="kysQuestionaire" action="/set/answers" method="POST">
+<div id="questions" class="kysQuestions">
+{% for q in questions %}
+<div class="kysQuestion">
+<div class="kysText">{{ q.q }}</div>
+<div class="kysScale">
+ <div class="kysNegative">{{ q.n }}</div>
+ <div class="kysScaleSpacer"></div>
+ <div class="kysPositive">{{ q.p }}</div>
+</div>
+<input class="kysAnswer" type="range" min="0" max="999" name="{{ q.i }}">
+</div>
+{% endfor %}
+<input class="kysSubmitAnswers" type="submit" value="Vastaa kyselyyn">
+</div>
+</form>
+

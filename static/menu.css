@@ -93,7 +93,7 @@
     .menuHidden, .menuSpacer, .menuTitle { display: flex !important }
     .menuSpacer { flex-grow: 2; }
     .menuText {
-        padding-left: calc(var(--menuHeight)/2);
+        padding-left: calc(var(--menuHeight)/8);
         padding-right: calc(var(--menuHeight)/2);
     }
 }

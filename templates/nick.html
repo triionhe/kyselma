@@ -1,6 +1,6 @@
-<div id="alertbox">{{ alert }}</div>
+{% include 'base.html' %}
 <form action="/set/nick" method="POST">
 Anna itsellesi nimimerkki ensin:
-<input type="text" name="nick" rows="1" cols="40"></textarea>
+<input type="text" name="nick">
 <input type="submit" value="Lähetä">
 </form>

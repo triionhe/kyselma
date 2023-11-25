@@ -3,7 +3,7 @@
     "pages": { 
         "info": {
             "URL": "pages/info.html",
-            "menuIcon": "kyselma.svg",
+            "menuIcon": "icons/gen-heart-rate-svgrepo-com.svg",
             "menuName": "Kyselmä"
         },
         "spacer-1": {
@@ -11,27 +11,36 @@
         "create": {
             "pageTitle": "Luo kysely",
             "URL": "pages/create.html",
-            "menuName": "Luo"
+            "menuIcon": "icons/con-ruler-pencil-svgrepo-com.svg",
+            "menuName": "Luo",
+            "dynamic": "yes"
         },
         "answer": {
             "pageTitle": "Vastaa kyselyyn",
             "URL": "pages/answer.html",
-            "menuName": "Vastaa"
+            "menuIcon": "icons/cld-server-svgrepo-com.svg",
+            "menuName": "Vastaa",
+            "dynamic": "yes"
         },
         "analyse": {
             "pageTitle": "Tutki vastauksia",
             "URL": "pages/analyse.html",
-            "menuName": "Tutki"
+            "menuIcon": "icons/cel-rings-love-svgrepo-com.svg",
+            "menuName": "Tutki",
+            "dynamic": "yes"
         },
         "moderate": {
             "pageTitle": "Moderoi sivustoa",
             "URL": "pages/moderate.html",
+            "menuIcon": "icons/cle-spraycan-svgrepo-com.svg",
+            "hidden": "yes",
             "menuName": "Moderoi"
         },
         "nick": {
             "pageTitle": "Anna nimimerkki",
             "URL": "pages/nick.html",
-            "hidden": "yes"
+            "hidden": "yes",
+            "dynamic": "yes"
         },
         "question": {
             "pageTitle": "Lisää kysymys",
@@ -39,8 +48,13 @@
             "hidden": "yes"
         },
         "quiz": {
-            "pageTitle": "Rakenna kysely",
+            "pageTitle": "Luodaanko uusi kyselmä?",
             "URL": "pages/quiz.html",
+            "hidden": "yes"
+        },
+        "new_answer": {
+            "pageTitle": "Anna kyselyn koodi",
+            "URL": "pages/new_answer.html",
             "hidden": "yes"
         }
     }

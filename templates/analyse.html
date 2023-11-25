@@ -1,4 +1,73 @@
-<div id="nickbox">{{ nick }}</div>
-<div id="alertbox">{{ alert }}</div>
-<h1>analyse</h1>
+{% include 'base.html' %}
+
+{% if users %}
+
+Tutkit kyselyä: {{ code }}
+
+
+<div class="kysQuestion"><div class="kysScale">
+<form action="/set/compare" method="POST">
+<input type="submit" value="Vertaa" class="kysButton">
+<select class="kysSelectU1 kysSelect" name="user1">
+{% for user in users %}
+ {% if user1==user.id %}
+  <option value="{{ user.id }}" selected>{{ user.nick }}</option>
+ {% else %}
+  <option value="{{ user.id }}">{{ user.nick }}</option>
+ {% endif %}
+{% endfor %}
+</select>
+<select class="kysSelectU2 kysSelect" name="user2">
+{% for user in users %}
+ {% if user2==user.id %}
+  <option value="{{ user.id }}" selected>{{ user.nick }}</option>
+ {% else %}
+  <option value="{{ user.id }}">{{ user.nick }}</option>
+ {% endif %}
+{% endfor %}
+</select>
+<div class="kysScaleSpacer"></div>
+</form>
+</div></div>
+
+{% endif %}
+
+{% if code %}
+
+<div id="questions" class="kysQuestions">
+ <div class="kysQuestion">
+  <div class="kysTotal">{{ avg }}%</div>
+ </div>
+{% for q in questions %}
+<div class="kysQuestion">
+ <div class="kysText">{{ q.q }} ({{ q.c }}%)</div>
+ <input class="kysAnswer kysUser1" type="range" min="0" max="999"
+        value="{{ q.a1 }}" disabled="">
+ <input class="kysAnswer kysUser2" type="range" min="0" max="999"
+        value="{{ q.a2 }}" disabled="">
+ <div class="kysScale">
+  <div class="kysNegative">{{ q.n }}</div>
+  <div class="kysScaleSpacer"></div>
+  <div class="kysPositive">{{ q.p }}</div>
+ </div>
+</div>
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+<form action="/set/answer_id" method="POST">
+Vaihda kyselyn koodia:
+<input type="text" name="link">
+<input type="text" name="next" value="analyse" hidden="true">
+<input type="submit" value="Vaihda">
+</form>
+
+{% if code %}
+Linkki tähän kyselyyn:
+<a href="http://anal.fi:5000/kys/{{ code }}">
+ http://anal.fi:5000/kys/{{ code }}
+</a>
+{% endif %}
 

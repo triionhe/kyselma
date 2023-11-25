@@ -8,8 +8,8 @@ app.config["SQLALCHEMY_DATABASE_URI"] = getenv("SQLALCHEMY_DATABASE_URI")
 db.init_app(app)
 
 import routes.base
-import routes.set.nick
-import routes.set.quiz
-import routes.set.question
-import routes.set.answers
-import routes.get.quiz
+import routes.answer
+import routes.create
+import routes.analyse
+import routes.question
+

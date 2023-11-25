@@ -1,9 +1,29 @@
-<script src="create.js"></script>
-<div id="nickbox">{{ nick }}</div>
-<div id="alertbox">{{ alert }}</div>
-<h1>create</h1>
+{% include 'base.html' %}
 
-<div id=questions></div>
 
-<a href="#question">Lisää kysymys</a>
+<div id="questions" class="kysQuestions">
+{% for q in questions %}
+<div class="kysQuestion">
+<div class="kysText">{{ q.q }}</div>
+<div class="kysScale">
+ <div class="kysNegative">{{ q.n }}</div>
+ <div class="kysScaleSpacer"></div>
+ <div class="kysPositive">{{ q.p }}</div>
+</div>
+<input class="kysAnswer" type="range" min="0" max="999"
+        value="{{ q.a }}" disabled=""></div>
+{% endfor %}
+
+<div class="kysQuestion">
+<div class="kysScale">
+<a href="#question">
+ <input type="button" value="Lisää kysymys" class="kysButton">
+</a>
+<div class="kysScaleSpacer"></div>
+<form action="/set/quiz_ready" method="POST">
+<input type="text" name="ok" hidden=true>
+<input type="submit" value="Valmis" class="kysButton">
 </form>
+<div class="kysScale">
+</div>
+</div>
