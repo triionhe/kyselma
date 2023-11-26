@@ -4,15 +4,6 @@ import db_actions as D
 from routes.tools import rows2dicts, get_alert, get_nick, red
 
 
-@app.route("/pages/new_answer.html")
-def new_answer():
-    if "id" not in session:
-        return red["nick"]
-    return render_template("new_answer.html", 
-            alert=get_alert(),
-            nick=get_nick()
-        )
-
 @app.route("/kys/<link>")
 def kys_link(link):
     if aid := D.find_quiz_by_link( link ):
@@ -22,17 +13,13 @@ def kys_link(link):
 
 @app.route("/set/answer_id",methods=["POST"])
 def answer_id():
+    next = "/#"+request.form["caller"] if "caller" in request.form else "/"
     if "id" not in session:
         session["alert"] = "Nimimerkkiä ei ole asetettu."
-        return redirect("/#nick")
+        return redirect(next)
     else:
         sid = session["id"]
 
-    if "next" not in request.form:
-        next = "/#answer"
-    else:
-        next = "/#"+request.form["next"]
-    
     if "link" not in request.form or request.form["link"]=="":
         session["alert"] = "Kyselmän nimeä ei ole annettu."
         return redirect(next)
@@ -48,6 +35,10 @@ def answer_id():
                             Voit tutkia vastaksia vastattuasi."
         return redirect("/#answer")
 
+    if next == "/#answer" and D.is_user_answered( aid, sid ):
+        session["alert"] = "Olet jo vastannut valitsemaasi kyselyyn."
+        return redirect("/#analyse")
+
     return redirect( next )
 
 @app.route("/pages/answer.html")
@@ -55,17 +46,33 @@ def answer():
     if "id" in session:
         sid = session["id"]
     else:
-        return red["nick"]
+        return render_template(
+                "answer.html",
+                caller = "answer",
+                alert = get_alert()
+            )
         
     if "answer_id" in session:
         aid = session["answer_id"]
     else:
-        return red["new_answer"]
+        return render_template(
+                "answer.html",
+                caller = "answer",
+                alert = get_alert(),
+                nick = get_nick()
+            )
         
     if D.is_user_answered(aid, sid):
-        return red["new_answer"]
+        return render_template(
+                "answer.html",
+                caller = "answer",
+                alert = get_alert(),
+                nick = get_nick()
+            )
         
-    return render_template("answer.html",
+    return render_template(
+            "answer.html",
+            caller = "answer",
             alert = get_alert(),
             nick = get_nick(),
             questions = rows2dicts( D.get_questions(aid), ['i','q','n','p'] ),
@@ -76,25 +83,25 @@ def answer():
 def set_answers():
     if "id" not in session:
         session["alert"]="Nimimerkkiä ei ole vielä valittu!"
-        return redirect( "/#nick" )
+        return redirect( "/#answer" )
     if "answer_id" not in session:
         session["alert"]="Kyselyä ei ole valittu vastaamista varten!"
         return redirect( "/#answer" )
 
     sid = session["id"]
-    for qid, answer in request.form.items():
+    for question, answer in request.form.items():
         try: 
             if int(answer) < 0 or int(answer) > 999:
                 session["alert"]="Luvattoman pieniä tai suuria lukuja!"
                 return redirect( "/#answer" )
-            elif D.get_user_answer(sid, int(qid) ):
+            elif D.get_user_answer(int(sid), int(question)) != -1:
                 session["alert"]="Kyselyyn olikin jo saatu vastauksia."
                 return redirect( "/#answer" )
         except ValueError:
             session["alert"] = "Vastaukset ei ole lukuja!"
             return redirect( "/#answer" )
 
-    for qid, answer in request.form.items():
-        D.answer_new(sid, int(qid), int(answer))
+    for question, answer in request.form.items():
+        D.answer_new(int(sid), int(question), int(answer))
 
     return redirect("/#analyse")

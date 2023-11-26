@@ -2,9 +2,9 @@
 .kysQuestion {
     display: flex;
     flex-direction: column;
-    max-width: 25em;
-    padding: 0.5em;
-    border: 0.15em #fed solid;
+    max-width: 25rem;
+    padding: 0.5rem;
+    border: 0.15rem #fed solid;
 }
 .kysText { 
     align-self: center;
@@ -33,12 +33,12 @@
 
 .kysNick::before {
   content: "Olet:";
-  padding-right: 0.4em;
+  padding-right: 0.4rem;
 }
 
 .kysNick {
-    border: 0.1em solid;
-    padding: 0.4em;
+    border: 0.1rem solid;
+    padding: 0.4rem;
     position: fixed;
     top: 100vh;
     left: 100vw;
@@ -48,8 +48,8 @@
 }
 
 .kysAlert {
-    border: 0.4em solid;
-    padding: 0.8em;
+    border: 0.4rem solid;
+    padding: 0.8rem;
     display: block;
     background-color: #F55;
     border-top-color: #F97;
@@ -63,8 +63,26 @@
 }
 
 .kysTotal {
-    align-self: center;
+  max-width: 25rem;
+  min-width: max-content;
+  display: flex;
+  justify-content: center;
+}
+.kysTotalText {
+    position: absolute;
     font-size: xxx-large;
+    height: 8rem;
+    aspect-ratio: 1;
+    text-align: center;
+    padding-top: 0.5rem;
+}
+.kysTotalBackground {
+  position: relative;
+  height: 8rem;
+  aspect-ratio: 1;
+  border-image: radial-gradient(#F00 69.6%,#0000 70.4%) 85%/50%;
+  clip-path: polygon(-42% 0,50% 91%, 142% 0);
+  z-index: -1;
 }
 
 .kysSelectU1 {
@@ -90,3 +108,4 @@
 .kysUser2::-webkit-slider-thumb, .kysUser2::-moz-range-thumb {
   background: #00c;
 }
+

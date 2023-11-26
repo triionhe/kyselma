@@ -80,7 +80,7 @@ def find_quiz_by_link( link ):
             FROM quiz_links \
             WHERE link=:link;"
     result = db.session.execute(text(sql), { "link":link }).fetchone()
-    return result[0] if result else result
+    return result[0] if result else False
 
 
 def get_quiz_link( quiz_id ):
@@ -133,12 +133,12 @@ def get_comparable(quiz_id,user1,user2):
 def get_user_answer(user_id, question_id):
     sql = "SELECT answer \
         FROM answers \
-        WHERE question_id = (:question_id)  AND user_id = (:user_id);"
+        WHERE question_id = (:question_id) AND user_id = (:user_id);"
     result = db.session.execute( text(sql), { 
             'question_id': question_id,
             'user_id': user_id 
             } ).fetchone()
-    return result[0] if result else result
+    return result[0] if result else -1
 
 
 def get_user_answers_for_quiz(quiz_id, user_id):
@@ -170,4 +170,15 @@ def is_user_answered(quiz_id, user_id):
             'quiz_id': quiz_id,
             'user_id': user_id
             } ).fetchone()
-    return results[0] if results else results
+    return True if results else False
+
+
+def get_all_answers_for_quiz(quiz_id):
+    sql = "SELECT a.question_id, a.user_id, a.answer \
+            FROM questionaires quiz \
+            JOIN answers a ON a.question_id = ANY(quiz.questionset) \
+            WHERE quiz.id = (:quiz_id);"
+    return db.session.execute( text(sql), { 
+            'quiz_id': quiz_id
+            } ).fetchall()
+

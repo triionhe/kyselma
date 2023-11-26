@@ -36,12 +36,6 @@
             "hidden": "yes",
             "menuName": "Moderoi"
         },
-        "nick": {
-            "pageTitle": "Anna nimimerkki",
-            "URL": "pages/nick.html",
-            "hidden": "yes",
-            "dynamic": "yes"
-        },
         "question": {
             "pageTitle": "Lisää kysymys",
             "URL": "pages/question.html",
@@ -50,11 +44,6 @@
         "quiz": {
             "pageTitle": "Luodaanko uusi kyselmä?",
             "URL": "pages/quiz.html",
-            "hidden": "yes"
-        },
-        "new_answer": {
-            "pageTitle": "Anna kyselyn koodi",
-            "URL": "pages/new_answer.html",
             "hidden": "yes"
         }
     }

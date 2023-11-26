@@ -5,7 +5,9 @@ from routes.tools import rows2dicts, get_alert, get_nick
 
 @app.route("/pages/question.html")
 def question():
-    return render_template("question.html",
+    return render_template(
+            "question.html",
+            caller="create",
             alert=get_alert(),
             nick=get_nick()
         )
@@ -25,13 +27,13 @@ def new_question():
         sid = session["id"]
     except (KeyError):
         session["alert"] = "Nimimerkki puuttuukin."
-        return redirect("/#nick")
+        return redirect("/#create")
         
     try:
         qid = session["quiz_id"]
     except (KeyError):
         session["alert"] = "Kyselmän luonti ei ollutkaan kesken."
-        return redirect("/#quiz")
+        return redirect("/#create")
         
     for entry in [question, neg_ans, pos_ans]:
         if len(entry) < 2 or len(entry) > 80:

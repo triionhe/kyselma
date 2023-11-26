@@ -1,6 +1,14 @@
 {% if nick %}
     <div class="kysNick">{{ nick }}</div>
+{% else %}
+<form action="/set/nick" method="POST">
+Anna itsellesi nimimerkki ensin:
+<input type="text" name="nick">
+<input type="text" name="caller" value="{{ caller }}" hidden="true">
+<input type="submit" value="Lähetä">
+</form>
 {% endif %}
+
 {% if alert %}
     <div class="kysAlert">{{ alert }}</div>
     <script src="alert-timeout.js"></script>

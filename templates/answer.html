@@ -1,4 +1,7 @@
 {% include 'base.html' %}
+{% if nick %}
+
+{% if link %}
 
 Vastaa kyselmään "{{ link }}":
 
@@ -19,3 +22,16 @@ Vastaa kyselmään "{{ link }}":
 </div>
 </form>
 
+{% else %}
+
+<form action="/set/answer_id" method="POST">
+Vastaa kyselyyn koodilla:
+<input type="text" name="link">
+<input type="text" name="caller" value="answer" hidden="true">
+<input type="submit" value="Kyselmään">
+</form>
+
+{% endif %}
+
+
+{% endif %}

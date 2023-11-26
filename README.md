@@ -12,17 +12,22 @@ Install poetry if nessesary. (refer your distro)
 - $ pip install --user poetry
 - $ pipx install poetry
 
-Clone the source, get tables ready & install poetry dependencies
+Clone the source & install poetry dependencies
 - $ git clone https://github.com/triionhe/kyselma.git
 - $ cd kyselma
-- $ psql < SCHEMA.sql (BE CAREFUL! This drops some tables.)
+- $ export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring (Just in case..)
 - $ poetry install --no-root
+
+Get database ready
+- $ psql < SCHEMA.sql (BE CAREFUL! This drops some tables.)
 	
 Start the app in poetry virtual environment
 - $ SQLALCHEMY_DATABASE_URI="postgresql:///$USER" SECRET_KEY=29347884 poetry run flask run
 
 Surf to the webpage and start two sessions for better testing
 - $ firefox http://localhost:5000/ http://127.0.0.1:5000/
+
+There is ready made kyselmä named 'kysdemo' for testing.
 
 
 

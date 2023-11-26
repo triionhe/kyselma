@@ -1,5 +1,8 @@
 {% include 'base.html' %}
 
+{% if nick %}
+
+{% if quiz_set %}
 
 <div id="questions" class="kysQuestions">
 {% for q in questions %}
@@ -27,3 +30,13 @@
 <div class="kysScale">
 </div>
 </div>
+
+{% else %}
+
+<form action="/set/quiz" method="POST">
+<input type="submit" value="Aloita uusi kyselmä">
+</form>
+
+{% endif %}
+
+{% endif %}

@@ -1,13 +1,13 @@
 {% include 'base.html' %}
+{% if nick %}
 
 {% if users %}
 
-Tutkit kyselyä: {{ code }}
+Tutkit kyselmää: {{ code }}
 
 
 <div class="kysQuestion"><div class="kysScale">
 <form action="/set/compare" method="POST">
-<input type="submit" value="Vertaa" class="kysButton">
 <select class="kysSelectU1 kysSelect" name="user1">
 {% for user in users %}
  {% if user1==user.id %}
@@ -26,7 +26,7 @@ Tutkit kyselyä: {{ code }}
  {% endif %}
 {% endfor %}
 </select>
-<div class="kysScaleSpacer"></div>
+<input type="submit" value="Vertaa" class="kysButton">
 </form>
 </div></div>
 
@@ -35,9 +35,13 @@ Tutkit kyselyä: {{ code }}
 {% if code %}
 
 <div id="questions" class="kysQuestions">
- <div class="kysQuestion">
-  <div class="kysTotal">{{ avg }}%</div>
+
+ <div class="kysTotal">
+  <div class="kysTotalBackground">
+   <div class="kysTotalText">{{ avg }}%</div>
+  </div>
  </div>
+
 {% for q in questions %}
 <div class="kysQuestion">
  <div class="kysText">{{ q.q }} ({{ q.c }}%)</div>
@@ -53,6 +57,34 @@ Tutkit kyselyä: {{ code }}
 </div>
 {% endfor %}
 
+<form action="/set/compare" method="POST">
+<input type="text" name="user1" hidden="true" value={{ best.max_u1 }}>
+<input type="text" name="user2" hidden="true" value={{ best.max_u2 }}>
+<input type="submit" value="Kaikista paras yhtäläisyys ({{ best.max }}%)" 
+  class="kysButton">
+</form>
+
+<form action="/set/compare" method="POST">
+<input type="text" name="user1" hidden="true" value={{ best.maxme_u1 }}>
+<input type="text" name="user2" hidden="true" value={{ best.maxme_u2 }}>
+<input type="submit" value="Paras yhtäläisyys kanssani ({{ best.maxme }}%)" 
+  class="kysButton">
+</form>
+
+<form action="/set/compare" method="POST">
+<input type="text" name="user1" hidden="true" value={{ best.minme_u1 }}>
+<input type="text" name="user2" hidden="true" value={{ best.minme_u2 }}>
+<input type="submit" value="Huonoin yhtäläisyys kanssani ({{ best.minme }}%)"
+  class="kysButton">
+</form>
+
+<form action="/set/compare" method="POST">
+<input type="text" name="user1" hidden="true" value={{ best.min_u1 }}>
+<input type="text" name="user2" hidden="true" value={{ best.min_u2 }}>
+<input type="submit" value="Kaikista huonoin yhtäläisyys ({{ best.min }}%)"
+  class="kysButton">
+</form>
+
 </div>
 
 {% endif %}
@@ -60,7 +92,7 @@ Tutkit kyselyä: {{ code }}
 <form action="/set/answer_id" method="POST">
 Vaihda kyselyn koodia:
 <input type="text" name="link">
-<input type="text" name="next" value="analyse" hidden="true">
+<input type="text" name="caller" value="analyse" hidden="true">
 <input type="submit" value="Vaihda">
 </form>
 
@@ -71,3 +103,4 @@ Linkki tähän kyselyyn:
 </a>
 {% endif %}
 
+{% endif %}
