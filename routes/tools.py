@@ -1,5 +1,5 @@
 from random import randint
-from flask import session
+from flask import session, request
 import db_actions as D
 
 def rows2dicts( rows, names ):
@@ -38,9 +38,10 @@ def generate_link():
         str+=vocal[randint(0,len(vocal)-1)]
     return str
 
-def csrf_check( redir ):
+def csrf_check():
     if "csrf" not in session \
             or "csrf" not in request.form \
-            or session["csrf"]!=request.form["csrf"]:
-        session["alert"]="Istuntosi katkesi tai pyyntö toiselta sivulta!"
-        return redirect( redir )
+            or session["csrf"] != request.form["csrf"]:
+        session["alert"]="Istuntosi katkesi tai pyyntö on toiselta sivulta!"
+        return True
+    return False

@@ -25,6 +25,7 @@
 <div class="kysScaleSpacer"></div>
 <form action="/set/quiz_ready" method="POST">
 <input type="text" name="ok" hidden=true>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Valmis" class="kysButton">
 </form>
 <div class="kysScale">
@@ -34,6 +35,7 @@
 {% else %}
 
 <form action="/set/quiz" method="POST">
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Aloita uusi kyselmä">
 </form>
 

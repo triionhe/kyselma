@@ -18,6 +18,7 @@ Vastaa kyselmään "{{ link }}":
 <input class="kysAnswer" type="range" min="0" max="999" name="{{ q.i }}">
 </div>
 {% endfor %}
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input class="kysSubmitAnswers" type="submit" value="Vastaa kyselyyn">
 </div>
 </form>
@@ -28,6 +29,7 @@ Vastaa kyselmään "{{ link }}":
 Vastaa kyselyyn koodilla:
 <input type="text" name="link">
 <input type="text" name="caller" value="answer" hidden="true">
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Kyselmään">
 </form>
 

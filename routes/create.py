@@ -41,7 +41,8 @@ def create():
 
 @app.route("/set/quiz",methods=["POST"])
 def new_quiz():
-    csrf_check("/#create")
+    if csrf_check():
+        return redirect("/#create")
     if not "id" in session.keys():
         session["alert"]="Tarvitset nimimerkin loudaksesi."
         return redirect("/#create")
@@ -52,7 +53,8 @@ def new_quiz():
 
 @app.route("/set/quiz_ready",methods=["POST"])
 def quiz_ready():
-    csrf_check("/#create")
+    if csrf_check():
+        return redirect("/#create")
     if "quiz_id" not in session.keys():
         session["alert"] = "Kyselmä jota ei ole aloitettu ei voi olla valmis."
         return redirect("/#create")

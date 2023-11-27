@@ -5,6 +5,7 @@
 Anna itsellesi nimimerkki ensin:
 <input type="text" name="nick">
 <input type="text" name="caller" value="{{ caller }}" hidden="true">
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Lähetä">
 </form>
 {% endif %}

@@ -26,6 +26,7 @@ Tutkit kyselmää: {{ code }}
  {% endif %}
 {% endfor %}
 </select>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Vertaa" class="kysButton">
 </form>
 </div></div>
@@ -60,6 +61,7 @@ Tutkit kyselmää: {{ code }}
 <form action="/set/compare" method="POST">
 <input type="text" name="user1" hidden="true" value={{ best.max_u1 }}>
 <input type="text" name="user2" hidden="true" value={{ best.max_u2 }}>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Kaikista paras yhtäläisyys ({{ best.max }}%)" 
   class="kysButton">
 </form>
@@ -67,6 +69,7 @@ Tutkit kyselmää: {{ code }}
 <form action="/set/compare" method="POST">
 <input type="text" name="user1" hidden="true" value={{ best.maxme_u1 }}>
 <input type="text" name="user2" hidden="true" value={{ best.maxme_u2 }}>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Paras yhtäläisyys kanssani ({{ best.maxme }}%)" 
   class="kysButton">
 </form>
@@ -74,6 +77,7 @@ Tutkit kyselmää: {{ code }}
 <form action="/set/compare" method="POST">
 <input type="text" name="user1" hidden="true" value={{ best.minme_u1 }}>
 <input type="text" name="user2" hidden="true" value={{ best.minme_u2 }}>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Huonoin yhtäläisyys kanssani ({{ best.minme }}%)"
   class="kysButton">
 </form>
@@ -81,6 +85,7 @@ Tutkit kyselmää: {{ code }}
 <form action="/set/compare" method="POST">
 <input type="text" name="user1" hidden="true" value={{ best.min_u1 }}>
 <input type="text" name="user2" hidden="true" value={{ best.min_u2 }}>
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Kaikista huonoin yhtäläisyys ({{ best.min }}%)"
   class="kysButton">
 </form>
@@ -93,6 +98,7 @@ Tutkit kyselmää: {{ code }}
 Vaihda kyselyn koodia:
 <input type="text" name="link">
 <input type="text" name="caller" value="analyse" hidden="true">
+<input type="text" name="csrf" value="{{ session.csrf }}" hidden="true">
 <input type="submit" value="Vaihda">
 </form>
 

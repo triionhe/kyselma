@@ -14,7 +14,8 @@ def kys_link(link):
 @app.route("/set/answer_id",methods=["POST"])
 def answer_id():
     next = "/#"+request.form["caller"] if "caller" in request.form else "/"
-    csrf_check(next)
+    if csrf_check():
+        return redirect(next)
     if "id" not in session:
         session["alert"] = "Nimimerkkiä ei ole asetettu."
         return redirect(next)
@@ -82,7 +83,8 @@ def answer():
 
 @app.route("/set/answers",methods=["POST"])
 def set_answers():
-    csrf_check("/#answer")
+    if csrf_check():
+        return redirect("/#answer")
     if "id" not in session:
         session["alert"]="Nimimerkkiä ei ole vielä valittu!"
         return redirect( "/#answer" )
@@ -92,6 +94,8 @@ def set_answers():
 
     sid = session["id"]
     for question, answer in request.form.items():
+        if question=="csrf":
+            continue
         try: 
             if int(answer) < 0 or int(answer) > 999:
                 session["alert"]="Luvattoman pieniä tai suuria lukuja!"
@@ -104,6 +108,8 @@ def set_answers():
             return redirect( "/#answer" )
 
     for question, answer in request.form.items():
+        if question=="csrf":
+            continue
         D.answer_new(int(sid), int(question), int(answer))
 
     return redirect("/#analyse")
