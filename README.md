@@ -2,6 +2,8 @@
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
 TO GET IT RUNNING:
+
+[Note that quide in the course material works as well]<https://hy-tsoha.github.io/materiaali/aikataulu/>
 	
 Install postgresql for local user & get it running (as in course material)
 - $ wget https://github.com/hy-tsoha/local-pg/raw/master/pg-install.sh
@@ -31,7 +33,12 @@ There is ready made kyselmä named 'kysdemo' for testing.
 
 
 
+
+
 DONE:
+- Eniten ja vähiten yhdenmukaiset vastaajat
+- Parempi ulkoasu
+- Vastauksen ja luomisen aloittamisen yksinkertaistaminen
 - Vastausten anto
 - Vastausten tarkistelu
 - Kyselyn luomisen näyttö
@@ -52,16 +59,17 @@ DONE:
 
 TODO:
 - Moderointi
-- Parempi ulkoasu
-- Vastauksen ja luomisen aloittamisen yksinkertaistaminen
 - Tietoturvaseikat?
-- Eniten ja vähiten yhdenmukaiset vastaajat
 ...
 
 Tarkoitus on luoda sivu jossa voi luoda kysymyksiä ja kyselyitä, joita
 täytetään anonyymillä nimimerkillä.
 
 Käyttäjä luo ensin kyselyn ja antaa omat vastauksensa.
+
+Käyttäjän luonti:
+- Tässä ohjelmassa ei ole käyttäjiä vaan ainoastaan nimimerkkejä
+- Nimimerkki on sessiokohtainen ja enempi vähempi pysyvä
 
 Kyselyn luonti:
 - Käyttäjä kirjoittaa kysymyksen
@@ -84,10 +92,9 @@ Kyselytila:
 Tarkastelutila:
 - Tilassa näkyy kutsulinkki ja koodi, jolla käyttäjä voi kutsua toisen
 - Tilassa voi valita monta eri moodia:
-	1. Kaikkien vastausten kekiarvo
-	2. Eniten omia vastauksia mukaileva käyttäjä
-	3. Vähiten omia vastauksia mukaileva käyttäjä
-	4. Etsi käyttäjä vertailtavaksi
+	1. Eniten omia vastauksia mukaileva käyttäjä
+	2. Vähiten omia vastauksia mukaileva käyttäjä
+	3. Etsi käyttäjä vertailtavaksi
 - Kaikissa moodeissa vertaillaan vastauksia/keskiarvoa omiin
 - Jokainen moodi näyttää myös yhtenäisyysprosentin
 
