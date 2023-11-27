@@ -8,7 +8,7 @@ Install postgresql for local user & get it running (as in course material)
 - $ bash pg-install.sh
 - $ postrgres &
 
-Clone the source & install poetry dependencies
+Clone the source
 - $ git clone https://github.com/triionhe/kyselma.git
 - $ cd kyselma
 
@@ -20,17 +20,21 @@ Either use (1) poetry or (2) venv to handle dependencies and run the app
 (1) Install poetry if nessesary. (refer your distro)
 - $ pip install --user poetry
 - $ pipx install poetry
+
 (1) Install dependencies
 - $ export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring (Just in case..)
 - $ poetry install --no-root
+
 (1) Start the app in poetry virtual environment
 - $ poetry run flask run
 
 (2) Activate venv environment
 - $ python3 -m venv venv
 - $ source venv/bin/activate
+
 (2) Install dependencies with pip
 - $ pip install -r ./requirements.txt
+
 (2) Start the app
 - $ flask run
 
