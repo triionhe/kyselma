@@ -14,6 +14,7 @@ def question():
 
 @app.route("/set/question",methods=["POST"])
 def new_question():
+    csrf_check("/#create")
     try:       
         question = request.form["question"]
         neg_ans = request.form["neg_ans"]

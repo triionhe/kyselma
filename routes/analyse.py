@@ -94,6 +94,7 @@ def analyse():
 
 @app.route("/set/compare",methods=["POST"])
 def set_compare():
+    csrf_check("/#analyse")
     session["anal_user1"] = request.form["user1"]
     session["anal_user2"] = request.form["user2"]
     return redirect("/#analyse")

@@ -14,6 +14,7 @@ def kys_link(link):
 @app.route("/set/answer_id",methods=["POST"])
 def answer_id():
     next = "/#"+request.form["caller"] if "caller" in request.form else "/"
+    csrf_check(next)
     if "id" not in session:
         session["alert"] = "Nimimerkkiä ei ole asetettu."
         return redirect(next)
@@ -81,6 +82,7 @@ def answer():
 
 @app.route("/set/answers",methods=["POST"])
 def set_answers():
+    csrf_check("/#answer")
     if "id" not in session:
         session["alert"]="Nimimerkkiä ei ole vielä valittu!"
         return redirect( "/#answer" )

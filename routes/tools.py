@@ -2,13 +2,6 @@ from random import randint
 from flask import session
 import db_actions as D
 
-red = {
-    "nick": "<script>window.location.hash=\"nick\"</script>",
-    "new_answer": "<script>window.location.hash=\"new_answer\"</script>",
-    "quiz": "<script>window.location.hash=\"quiz\"</script>"
-}
-
-
 def rows2dicts( rows, names ):
     dlist=[]
     for i in range(len(rows)):
@@ -44,3 +37,10 @@ def generate_link():
         str+=konso[randint(0,len(konso)-1)]
         str+=vocal[randint(0,len(vocal)-1)]
     return str
+
+def csrf_check( redir )
+    if "csrf" not in session 
+            or "csrf" not in request.form
+            of session["csrf"]!=request.form["csrf"]:
+        session["alert"]="Istuntosi katkesi tai pyyntö toiselta sivulta!"
+        return redirect( redir )

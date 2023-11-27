@@ -25,6 +25,7 @@ def info():
 @app.route("/set/nick",methods=["POST"])
 def new_nick():
     next = "/#"+request.form["caller"] if "caller" in request.form else "/"
+    csrf_check(next)
     if "id" in session.keys():
         session["alert"]="Sinulla on jo nimimerkki. Käytä sitä."
         return redirect(next)
