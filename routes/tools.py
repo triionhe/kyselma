@@ -38,9 +38,9 @@ def generate_link():
         str+=vocal[randint(0,len(vocal)-1)]
     return str
 
-def csrf_check( redir )
-    if "csrf" not in session 
-            or "csrf" not in request.form
-            of session["csrf"]!=request.form["csrf"]:
+def csrf_check( redir ):
+    if "csrf" not in session \
+            or "csrf" not in request.form \
+            or session["csrf"]!=request.form["csrf"]:
         session["alert"]="Istuntosi katkesi tai pyyntö toiselta sivulta!"
         return redirect( redir )

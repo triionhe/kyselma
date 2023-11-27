@@ -2,7 +2,7 @@ from itertools import combinations
 from app import app
 from flask import render_template,session,request,redirect
 import db_actions as D
-from routes.tools import rows2dicts, get_alert, get_nick, red
+from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 def find_best_and_worst(aid, uid):
     answers=D.get_all_answers_for_quiz(aid)

@@ -1,10 +1,11 @@
 from app import app
 from flask import render_template,session,request,redirect
 import db_actions as D
-from routes.tools import rows2dicts, get_alert, get_nick
+from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 @app.route("/")
 def index():
+    session["csrf"] = token_urlsafe()
     return app.send_static_file("index.html")
 
 @app.route("/pages/info.html")

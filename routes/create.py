@@ -1,7 +1,7 @@
 from app import app
 from flask import render_template,session,request,redirect
 import db_actions as D
-from routes.tools import rows2dicts, get_alert, get_nick, generate_link, red
+from routes.tools import rows2dicts, get_alert, get_nick, generate_link, csrf_check
 
 
 @app.route("/pages/create.html")
