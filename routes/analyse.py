@@ -4,25 +4,14 @@ from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 def find_best_and_worst(aid, uid):
-    answers=D.quiz.answers(aid)
-    alist=rows2dicts( answers, ['q','u','a'] )
-    questions = set(x['q'] for x in alist)
-    users = set(x['u'] for x in alist)
-    data = {}
-    for q in questions:
-        data[q]={}
-    for i in alist:
-        data[i['q']][i['u']]=i['a']
     match = {}
+    users = [ x[0] for x in D.quiz.users(aid) ]
     comb = list(combinations(users,2))
     if len(comb)<1:
         comb=[(uid,uid)]
     min, minme, max, maxme = 101, 101, -1, -1
     for pair in comb:
-        sum=0
-        for q in questions:
-            sum += 1000 - abs(data[q][pair[0]]-data[q][pair[1]])
-        match[pair]=int(sum / len(questions) / 10 + 0.5)
+        match[pair] = int(D.analyse.compare(aid,pair[0],pair[1]))
         if match[pair] < min:
             min = match[pair]
             min_pair = pair
@@ -69,26 +58,27 @@ def analyse():
 
     uid2 = session["anal_user2"] if "anal_user2" in session else sid
     uid2 = sid if uid2 != sid and not D.quiz.user(aid,uid2) else uid2
-
-
-    comparable = D.analyse.comparable( aid, uid1, uid2 )
-    avg=0
-    for i in range(len(comparable)):
-        avg += comparable[i][5]
-    avg//=len(comparable)
     
+    best = find_best_and_worst(aid, sid)
+    
+    if uid1 == uid2:
+        uid1 = best['maxme_u1']
+        uid2 = best['maxme_u2']
+
+
     return render_template(
             "analyse.html",
             caller="analyse",
             alert=get_alert(),
             nick=get_nick(),
             code=D.quiz.get_link(aid),
-            questions = rows2dicts( comparable, ['q','n','p','a1','a2','c'] ),
+            questions = rows2dicts( D.analyse.pagedata( aid, uid1, uid2 ),
+                    ['q','n','p','a1','a2','c'] ),
             users = rows2dicts( D.quiz.users(aid), ['id','nick'] ),
                 user1=int(uid1),
                 user2=int(uid2),
-                avg = avg,
-                best = find_best_and_worst(aid, sid)
+                avg = int(D.analyse.compare(aid,uid1,uid2)),
+                best = best
         )
 
 @app.route("/set/compare",methods=["POST"])

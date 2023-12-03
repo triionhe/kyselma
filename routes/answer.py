@@ -31,12 +31,12 @@ def answer_id():
         session["alert"] = "Koodilla ei löytynyt kyselmää"
         return redirect(next)
         
-    if next == "/#analyse" and not D.is_user_answered( aid, sid ):
+    if next == "/#analyse" and not D.quiz.user( aid, sid ):
         session["alert"] = "Et ole vielä vastannut tähän kyselmään. \
                             Voit tutkia vastaksia vastattuasi."
         return redirect("/#answer")
 
-    if next == "/#answer" and D.is_user_answered( aid, sid ):
+    if next == "/#answer" and D.quiz.user( aid, sid ):
         session["alert"] = "Olet jo vastannut valitsemaasi kyselyyn."
         return redirect("/#analyse")
 
