@@ -6,35 +6,14 @@ from sqlalchemy.sql import text
 
 from app import app
 
+from db.user import DBUser
+
 class DB:
     def __init__(self):
         self.db = SQLAlchemy()
         self.db.init_app(app)
+        self.user = DBUser(self.db)
         
-    def user_new(self, nick):
-        sql = "INSERT \
-                INTO users (nick, created) \
-                VALUES (:nick, :created) \
-                RETURNING id ;"
-        result = self.db.session.execute(
-                text(sql), { "nick":nick, "created":int(time()) }
-            )
-        self.db.session.commit()
-        return result.fetchone()[0]
-
-    def user_get_nick(self, id):
-        sql = "SELECT nick \
-                FROM users \
-                WHERE id=(:id);"
-        result = self.db.session.execute(text(sql), { "id":id }).fetchone()
-        return result[0] if result else result
-
-    def user_exists(self, nick):
-        sql = "SELECT COUNT(id) \
-                FROM users \
-                WHERE nick=(:nick);"
-        return self.db.session.execute(text(sql), { "nick":nick }).scalar()
-
     def question_new(self, question, neg_ans, pos_ans ):
         sql = "INSERT \
                 INTO questions (question, neg_answer, pos_answer, created) \

@@ -42,10 +42,10 @@ def new_nick():
     if not nick.isalnum():
         session["alert"]="Nimimerkissä saa olla vain kirjaimia ja numeroita."
         return redirect(next)
-    if D.user_exists(nick):
+    if D.user.exists(nick):
         session["alert"]="Nimimerkki jonka olet ottamassa on jo varattu."
         return redirect(next)
-    session["id"] = int(D.user_new(nick))
+    session["id"] = int(D.user.new(nick))
     return redirect(next)
 
 

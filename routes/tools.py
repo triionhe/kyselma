@@ -20,7 +20,7 @@ def get_alert():
     
 def get_nick():
     while "id" in session.keys():
-        nick = D.user_get_nick(session["id"])
+        nick = D.user.get_nick(session["id"])
         if not nick:
             del session['id']
             if "quiz_id" in session.keys():
