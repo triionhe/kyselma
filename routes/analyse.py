@@ -5,8 +5,7 @@ from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 def find_best_and_worst(aid, uid):
     match = {}
-    users = [ x[0] for x in D.quiz.users(aid) ]
-    comb = list(combinations(users,2))
+    comb = D.analyse.combinations(aid)
     if len(comb)<1:
         comb=[(uid,uid)]
     min, minme, max, maxme = 101, 101, -1, -1

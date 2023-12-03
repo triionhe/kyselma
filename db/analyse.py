@@ -38,3 +38,15 @@ class DBAnalyse:
             } ).scalar()
         
         
+    def combinations(self, quiz_id):
+        sql = "SELECT u1.id, u2.id \
+                FROM questionaires quiz \
+                JOIN answers a1 ON a1.question_id = quiz.questionset[1] \
+                JOIN answers a2 ON a2.question_id = quiz.questionset[1] \
+                JOIN users u1 ON u1.id = a1.user_id \
+                JOIN users u2 ON u2.id = a2.user_id \
+                WHERE quiz.id = (:quiz_id) AND u1.id > u2.id;"
+        return self.db.session.execute( text(sql), { 
+                'quiz_id': quiz_id
+                } ).fetchall()
+
