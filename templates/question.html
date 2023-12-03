@@ -1,4 +1,7 @@
 {% include 'base.html' %}
+
+{% if nick %}
+
 <form action="/set/question" method="POST">
 <div class="kysQuestion">
 <div class="kysCreateText">Kysymys:</div>
@@ -16,3 +19,5 @@
 <input type="submit" value="Lisää kysymys">
 </div>
 </form>
+
+{% endif %}

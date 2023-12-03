@@ -1,6 +1,6 @@
 from random import randint
 from flask import session, request
-import db_actions as D
+from app import D
 
 def rows2dicts( rows, names ):
     dlist=[]

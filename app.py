@@ -1,7 +1,7 @@
 from secrets import token_hex
 from flask import Flask
 from os import getenv
-from db_actions import db
+#from db_actions import db
 
 app = Flask(__name__, static_url_path='')
 
@@ -15,7 +15,10 @@ if s_key := getenv("SECRET_KEY"):
 else:
     app.secret_key = token_hex()
     
-db.init_app(app)
+from db.db import DB
+D = DB()
+    
+#db.init_app(app)
 
 import routes.base
 import routes.answer

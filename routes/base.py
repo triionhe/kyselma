@@ -1,7 +1,6 @@
 from secrets import token_urlsafe
-from app import app
+from app import app, D
 from flask import render_template,session,request,redirect
-import db_actions as D
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 @app.route("/")
