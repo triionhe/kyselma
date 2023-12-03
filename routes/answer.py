@@ -63,7 +63,7 @@ def answer():
                 nick = get_nick()
             )
         
-    if D.is_user_answered(aid, sid):
+    if D.quiz.user(aid, sid):
         return render_template(
                 "answer.html",
                 caller = "answer",
@@ -76,7 +76,7 @@ def answer():
             caller = "answer",
             alert = get_alert(),
             nick = get_nick(),
-            questions = rows2dicts( D.get_questions(aid), ['i','q','n','p'] ),
+            questions = rows2dicts( D.quiz.questions(aid), ['i','q','n','p'] ),
             link = D.quiz.get_link( aid )
         )
 
@@ -99,7 +99,7 @@ def set_answers():
             if int(answer) < 0 or int(answer) > 999:
                 session["alert"]="Luvattoman pieniä tai suuria lukuja!"
                 return redirect( "/#answer" )
-            elif D.get_user_answer(int(sid), int(question)) != -1:
+            elif D.answer.get(int(sid), int(question)) != -1:
                 session["alert"]="Kyselyyn olikin jo saatu vastauksia."
                 return redirect( "/#answer" )
         except ValueError:
@@ -109,6 +109,6 @@ def set_answers():
     for question, answer in request.form.items():
         if question=="csrf":
             continue
-        D.answer_new(int(sid), int(question), int(answer))
+        D.answer.new(int(sid), int(question), int(answer))
 
     return redirect("/#analyse")

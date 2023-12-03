@@ -14,6 +14,7 @@ class DBQuiz:
         self.db.session.commit()
         return result.fetchone()[0]
 
+
     def add(self, quiz_id, question_id ):
         sql = "UPDATE questionaires \
                 SET questionset = ARRAY_APPEND(questionset, :question_id) \
@@ -49,3 +50,45 @@ class DBQuiz:
         result = self.db.session.execute(text(sql), 
                 { "quiz_id":quiz_id }).fetchone()
         return result[0] if result else result
+
+
+    def questions(self, quiz_id):
+        sql = "SELECT q.id, q.question, q.neg_answer, q.pos_answer, a.answer \
+                FROM questionaires quiz \
+                JOIN questions q ON q.id = ANY(quiz.questionset) \
+                JOIN answers a ON a.user_id = quiz.creator_id \
+                WHERE a.question_id = q.id AND quiz.id = (:quiz_id);"
+        return self.db.session.execute( text(sql),
+                { "quiz_id":quiz_id } ).fetchall()
+
+    def answers(self, quiz_id):
+        sql = "SELECT a.question_id, a.user_id, a.answer \
+                FROM questionaires quiz \
+                JOIN answers a ON a.question_id = ANY(quiz.questionset) \
+                WHERE quiz.id = (:quiz_id);"
+        return self.db.session.execute( text(sql), { 
+                'quiz_id': quiz_id
+                } ).fetchall()
+
+
+    def users(self, quiz_id):
+        sql = "SELECT DISTINCT a.user_id, u.nick \
+                FROM questionaires quiz \
+                JOIN answers a ON a.question_id = quiz.questionset[1] \
+                JOIN users u ON u.id = a.user_id \
+                WHERE quiz.id = (:quiz_id);"
+        return self.db.session.execute( text(sql), { 
+                'quiz_id': quiz_id
+                } ).fetchall()
+
+    def user(self, quiz_id, user_id):
+        sql = "SELECT a.answer \
+                FROM questionaires quiz \
+                JOIN answers a ON a.question_id = quiz.questionset[1] \
+                WHERE quiz.id = (:quiz_id) AND a.user_id = (:user_id);"
+        results = self.db.session.execute( text(sql), { 
+                'quiz_id': quiz_id,
+                'user_id': user_id
+                } ).fetchone()
+        return True if results else False
+

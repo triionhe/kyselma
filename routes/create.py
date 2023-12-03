@@ -33,7 +33,7 @@ def create():
             nick=get_nick(),
             quiz_set=True,
             questions=rows2dicts(
-                D.get_questions(session["quiz_id"]),
+                D.quiz.questions(session["quiz_id"]),
                 ['i','q','n','p','a']
             )
         )
@@ -57,7 +57,7 @@ def quiz_ready():
     if "quiz_id" not in session.keys():
         session["alert"] = "Kyselmä jota ei ole aloitettu ei voi olla valmis."
         return redirect("/#create")
-    if not D.is_user_answered(session["quiz_id"], session["id"]):
+    if not D.quiz.user(session["quiz_id"], session["id"]):
         session["alert"] = "Tyhjän kyselmän luominen ei käy päinsä!"
         return redirect("/#create")
     quiz_id = session["quiz_id"]

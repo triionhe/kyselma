@@ -4,7 +4,7 @@ from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 def find_best_and_worst(aid, uid):
-    answers=D.get_all_answers_for_quiz(aid)
+    answers=D.quiz.answers(aid)
     alist=rows2dicts( answers, ['q','u','a'] )
     questions = set(x['q'] for x in alist)
     users = set(x['u'] for x in alist)
@@ -54,7 +54,7 @@ def analyse():
                 alert=get_alert()
             )
 
-    if "answer_id" in session and D.is_user_answered(session["answer_id"],sid):
+    if "answer_id" in session and D.quiz.user(session["answer_id"],sid):
         aid = session["answer_id"]
     else:
         return render_template(
@@ -65,13 +65,13 @@ def analyse():
             )
 
     uid1 = session["anal_user1"] if "anal_user1" in session else sid
-    uid1 = sid if uid1 != sid and not D.is_user_answered(aid,uid1) else uid1
+    uid1 = sid if uid1 != sid and not D.quiz.user(aid,uid1) else uid1
 
     uid2 = session["anal_user2"] if "anal_user2" in session else sid
-    uid2 = sid if uid2 != sid and not D.is_user_answered(aid,uid2) else uid2
+    uid2 = sid if uid2 != sid and not D.quiz.user(aid,uid2) else uid2
 
 
-    comparable = D.get_comparable( aid, uid1, uid2 )
+    comparable = D.analyse.comparable( aid, uid1, uid2 )
     avg=0
     for i in range(len(comparable)):
         avg += comparable[i][5]
@@ -84,7 +84,7 @@ def analyse():
             nick=get_nick(),
             code=D.quiz.get_link(aid),
             questions = rows2dicts( comparable, ['q','n','p','a1','a2','c'] ),
-            users = rows2dicts( D.get_users_answered(aid), ['id','nick'] ),
+            users = rows2dicts( D.quiz.users(aid), ['id','nick'] ),
                 user1=int(uid1),
                 user2=int(uid2),
                 avg = avg,
