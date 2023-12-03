@@ -46,7 +46,7 @@ def new_question():
         return redirect("/#question")
 
     question_id = D.question_new( question, neg_ans, pos_ans )
-    D.quiz_add(qid, question_id)
+    D.quiz.add(qid, question_id)
     D.answer_new(sid, question_id, answer)        
     return redirect("/#create")
 

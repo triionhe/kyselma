@@ -18,7 +18,7 @@ def create():
                 alert=get_alert(),
                 nick=get_nick()
             )
-    if D.get_quiz_link(session["quiz_id"]):
+    if D.quiz.get_link(session["quiz_id"]):
         return render_template(
                 "create.html",
                 caller="create",
@@ -46,7 +46,7 @@ def new_quiz():
         session["alert"]="Tarvitset nimimerkin loudaksesi."
         return redirect("/#create")
     user_id = session["id"]
-    session["quiz_id"] = D.quiz_new( user_id )
+    session["quiz_id"] = D.quiz.new( user_id )
     return redirect("/#create")
 
 
@@ -62,5 +62,5 @@ def quiz_ready():
         return redirect("/#create")
     quiz_id = session["quiz_id"]
     session["answer_id"] = session["quiz_id"]
-    D.set_quiz_link(session["quiz_id"], generate_link())
+    D.quiz.set_link(session["quiz_id"], generate_link())
     return redirect("/#analyse")

@@ -5,7 +5,7 @@ from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 @app.route("/kys/<link>")
 def kys_link(link):
-    if aid := D.find_quiz_by_link( link ):
+    if aid := D.quiz.find_by_link( link ):
         session["answer_id"] = aid
         return redirect("/#answer")
     return redirect("/")
@@ -25,7 +25,7 @@ def answer_id():
         session["alert"] = "Kyselmän nimeä ei ole annettu."
         return redirect(next)
         
-    if aid := D.find_quiz_by_link( request.form["link"] ):
+    if aid := D.quiz.find_by_link( request.form["link"] ):
         session["answer_id"] = aid
     else:
         session["alert"] = "Koodilla ei löytynyt kyselmää"
@@ -77,7 +77,7 @@ def answer():
             alert = get_alert(),
             nick = get_nick(),
             questions = rows2dicts( D.get_questions(aid), ['i','q','n','p'] ),
-            link = D.get_quiz_link( aid )
+            link = D.quiz.get_link( aid )
         )
 
 @app.route("/set/answers",methods=["POST"])

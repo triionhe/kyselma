@@ -82,7 +82,7 @@ def analyse():
             caller="analyse",
             alert=get_alert(),
             nick=get_nick(),
-            code=D.get_quiz_link(aid),
+            code=D.quiz.get_link(aid),
             questions = rows2dicts( comparable, ['q','n','p','a1','a2','c'] ),
             users = rows2dicts( D.get_users_answered(aid), ['id','nick'] ),
                 user1=int(uid1),
