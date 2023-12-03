@@ -1,5 +1,3 @@
-from time import time
-
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
@@ -16,26 +14,25 @@ class DB:
         
     def question_new(self, question, neg_ans, pos_ans ):
         sql = "INSERT \
-                INTO questions (question, neg_answer, pos_answer, created) \
-                VALUES (:question, :neg_answer, :pos_answer, :created) \
+                INTO questions (question, neg_answer, pos_answer) \
+                VALUES (:question, :neg_answer, :pos_answer) \
                 RETURNING id ;"
         result = self.db.session.execute(
                 text(sql), { 
                         "question":question, 
                         "neg_answer":neg_ans,
-                        "pos_answer":pos_ans,
-                        "created":int(time()) }
+                        "pos_answer":pos_ans }
             )
         self.db.session.commit()
         return result.fetchone()[0]
 
     def quiz_new(self, user_id):
         sql = "INSERT \
-                INTO questionaires (creator_id, created) \
-                VALUES (:creator_id, :created) \
+                INTO questionaires (creator_id) \
+                VALUES (:creator_id) \
                 RETURNING id ;"
         result = self.db.session.execute( text(sql),
-            { "creator_id":user_id, "created":int(time()) } )
+            { "creator_id":user_id } )
         self.db.session.commit()
         return result.fetchone()[0]
 
@@ -52,10 +49,10 @@ class DB:
 
     def set_quiz_link( self, quiz_id, link ):
         sql = "INSERT \
-                INTO quiz_links (quiz_id, link, created) \
-                VALUES (:quiz_id, :link, :created)"
+                INTO quiz_links (quiz_id, link) \
+                VALUES (:quiz_id, :link)"
         result = self.db.session.execute( text(sql),
-            {  "quiz_id":quiz_id, "link":link, "created":int(time()) } )
+            {  "quiz_id":quiz_id, "link":link } )
         self.db.session.commit()
 
 
@@ -77,13 +74,12 @@ class DB:
     
     def answer_new(self, user_id, question_id, answer):
         sql = "INSERT \
-                INTO answers (user_id, question_id,	answer,	created) \
-                VALUES (:user_id, :question_id, :answer, :created);"
+                INTO answers (user_id, question_id, answer ) \
+                VALUES (:user_id, :question_id, :answer);"
         self.db.session.execute( text(sql), {
                 "user_id":user_id,
                 "question_id":question_id, 
-                "answer":answer,
-                "created":int(time())
+                "answer":answer
             } )
         self.db.session.commit()
 

@@ -1,5 +1,3 @@
-from time import time
-
 from sqlalchemy.sql import text
 
 class DBUser:
@@ -15,12 +13,10 @@ class DBUser:
 
     def new(self, nick):
         sql = "INSERT \
-                INTO users (nick, created) \
-                VALUES (:nick, :created) \
+                INTO users (nick) \
+                VALUES (:nick) \
                 RETURNING id ;"
-        result = self.db.session.execute(
-                text(sql), { "nick":nick, "created":int(time()) }
-            )
+        result = self.db.session.execute( text(sql), { "nick":nick } )
         self.db.session.commit()
         return result.fetchone()[0]
 
