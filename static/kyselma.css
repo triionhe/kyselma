@@ -62,6 +62,21 @@
     transform: translate(-50%, -50%);
 }
 
+.kysInfo {
+    border: 0.4rem solid;
+    padding: 0.8rem;
+    display: block;
+    background-color: #55F;
+    border-top-color: #79F;
+    border-left-color: #69F;
+    border-right-color: #31F;
+    border-bottom-color: #41F;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+}
+
 .kysTotal {
   max-width: 25rem;
   min-width: max-content;

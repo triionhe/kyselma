@@ -37,7 +37,7 @@ def new_question():
         return redirect("/#create")
         
     for entry in [question, neg_ans, pos_ans]:
-        if len(entry) < 2 or len(entry) > 80:
+        if len(entry.strip()) < 2 or len(entry.strip()) > 80:
             session["alert"] = "Syötteiden tulee olla 2-80 merkkiä pitkiä"
             return redirect("/#question")
             

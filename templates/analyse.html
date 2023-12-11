@@ -103,10 +103,10 @@ Vaihda kyselyn koodia:
 </form>
 
 {% if code %}
-Linkki tähän kyselyyn:
-<a href="http://anal.fi:5000/kys/{{ code }}">
- http://127.0.0.1:5000/kys/{{ code }}
-</a>
+Kopioi linkki tähän kyselyyn:
+<button id="kysLink">http://127.0.0.1:5000/kys/{{ code }}</button>
+<script src="kys-link-info.js"></script>
+
 {% endif %}
 
 {% endif %}
