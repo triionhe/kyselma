@@ -1,6 +1,6 @@
 from random import randint
 from flask import session, request
-from app import D
+from app import db
 
 def rows2dicts( rows, names ):
     dlist=[]
@@ -20,7 +20,7 @@ def get_alert():
     
 def get_nick():
     while "id" in session.keys():
-        nick = D.user.get_nick(session["id"])
+        nick = db.user.get_nick(session["id"])
         if not nick:
             del session['id']
             if "quiz_id" in session.keys():

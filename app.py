@@ -15,7 +15,7 @@ else:
     app.secret_key = token_hex()
     
 from db.db import DB
-D = DB()
+db = DB()
     
 import routes.base
 import routes.answer

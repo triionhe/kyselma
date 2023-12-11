@@ -1,5 +1,5 @@
 from secrets import token_urlsafe
-from app import app, D
+from app import app, db
 from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
@@ -42,10 +42,10 @@ def new_nick():
     if not nick.isalnum():
         session["alert"]="Nimimerkissä saa olla vain kirjaimia ja numeroita."
         return redirect(next)
-    if D.user.exists(nick):
+    if db.user.exists(nick):
         session["alert"]="Nimimerkki jonka olet ottamassa on jo varattu."
         return redirect(next)
-    session["id"] = int(D.user.new(nick))
+    session["id"] = int(db.user.new(nick))
     return redirect(next)
 
 

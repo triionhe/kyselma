@@ -1,16 +1,16 @@
 from itertools import combinations
-from app import app, D
+from app import app, db
 from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 def find_best_and_worst(aid, uid):
     match = {}
-    comb = D.analyse.combinations(aid)
+    comb = db.analyse.combinations(aid)
     if len(comb)<1:
         comb=[(uid,uid)]
     min, minme, max, maxme = 101, 101, -1, -1
     for pair in comb:
-        match[pair] = int(D.analyse.compare(aid,pair[0],pair[1]))
+        match[pair] = int(db.analyse.compare(aid,pair[0],pair[1]))
         if match[pair] < min:
             min = match[pair]
             min_pair = pair
@@ -42,7 +42,7 @@ def analyse():
                 alert=get_alert()
             )
 
-    if "answer_id" in session and D.quiz.user(session["answer_id"],sid):
+    if "answer_id" in session and db.quiz.user(session["answer_id"],sid):
         aid = session["answer_id"]
     else:
         return render_template(
@@ -53,10 +53,10 @@ def analyse():
             )
 
     uid1 = session["anal_user1"] if "anal_user1" in session else sid
-    uid1 = sid if uid1 != sid and not D.quiz.user(aid,uid1) else uid1
+    uid1 = sid if uid1 != sid and not db.quiz.user(aid,uid1) else uid1
 
     uid2 = session["anal_user2"] if "anal_user2" in session else sid
-    uid2 = sid if uid2 != sid and not D.quiz.user(aid,uid2) else uid2
+    uid2 = sid if uid2 != sid and not db.quiz.user(aid,uid2) else uid2
     
     best = find_best_and_worst(aid, sid)
     
@@ -70,13 +70,13 @@ def analyse():
             caller="analyse",
             alert=get_alert(),
             nick=get_nick(),
-            code=D.quiz.get_link(aid),
-            questions = rows2dicts( D.analyse.pagedata( aid, uid1, uid2 ),
+            code=db.quiz.get_link(aid),
+            questions = rows2dicts( db.analyse.pagedata( aid, uid1, uid2 ),
                     ['q','n','p','a1','a2','c'] ),
-            users = rows2dicts( D.quiz.users(aid), ['id','nick'] ),
+            users = rows2dicts( db.quiz.users(aid), ['id','nick'] ),
                 user1=int(uid1),
                 user2=int(uid2),
-                avg = int(D.analyse.compare(aid,uid1,uid2)),
+                avg = int(db.analyse.compare(aid,uid1,uid2)),
                 best = best
         )
 

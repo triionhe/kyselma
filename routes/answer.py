@@ -1,11 +1,11 @@
-from app import app, D
+from app import app, db
 from flask import render_template, session, request, redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
 
 @app.route("/kys/<link>")
 def kys_link(link):
-    if aid := D.quiz.find_by_link( link ):
+    if aid := db.quiz.find_by_link( link ):
         session["answer_id"] = aid
         return redirect("/#answer")
     return redirect("/")
@@ -25,18 +25,18 @@ def answer_id():
         session["alert"] = "Kyselmän nimeä ei ole annettu."
         return redirect(next)
         
-    if aid := D.quiz.find_by_link( request.form["link"] ):
+    if aid := db.quiz.find_by_link( request.form["link"] ):
         session["answer_id"] = aid
     else:
         session["alert"] = "Koodilla ei löytynyt kyselmää"
         return redirect(next)
         
-    if next == "/#analyse" and not D.quiz.user( aid, sid ):
+    if next == "/#analyse" and not db.quiz.user( aid, sid ):
         session["alert"] = "Et ole vielä vastannut tähän kyselmään. \
                             Voit tutkia vastaksia vastattuasi."
         return redirect("/#answer")
 
-    if next == "/#answer" and D.quiz.user( aid, sid ):
+    if next == "/#answer" and db.quiz.user( aid, sid ):
         session["alert"] = "Olet jo vastannut valitsemaasi kyselyyn."
         return redirect("/#analyse")
 
@@ -63,7 +63,7 @@ def answer():
                 nick = get_nick()
             )
         
-    if D.quiz.user(aid, sid):
+    if db.quiz.user(aid, sid):
         return render_template(
                 "answer.html",
                 caller = "answer",
@@ -76,8 +76,8 @@ def answer():
             caller = "answer",
             alert = get_alert(),
             nick = get_nick(),
-            questions = rows2dicts( D.quiz.questions(aid), ['i','q','n','p'] ),
-            link = D.quiz.get_link( aid )
+            questions = rows2dicts( db.quiz.questions(aid), ['i','q','n','p'] ),
+            link = db.quiz.get_link( aid )
         )
 
 @app.route("/set/answers",methods=["POST"])
@@ -99,7 +99,7 @@ def set_answers():
             if int(answer) < 0 or int(answer) > 999:
                 session["alert"]="Luvattoman pieniä tai suuria lukuja!"
                 return redirect( "/#answer" )
-            elif D.answer.get(int(sid), int(question)) != -1:
+            elif db.answer.get(int(sid), int(question)) != -1:
                 session["alert"]="Kyselyyn olikin jo saatu vastauksia."
                 return redirect( "/#answer" )
         except ValueError:
@@ -109,6 +109,6 @@ def set_answers():
     for question, answer in request.form.items():
         if question=="csrf":
             continue
-        D.answer.new(int(sid), int(question), int(answer))
+        db.answer.new(int(sid), int(question), int(answer))
 
     return redirect("/#analyse")

@@ -1,4 +1,4 @@
-from app import app, D
+from app import app, db
 from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, csrf_check
 
@@ -45,8 +45,8 @@ def new_question():
         session["alert"] = "Vastauksessasi on nyt jotain häikkää."
         return redirect("/#question")
 
-    question_id = D.question.new( question, neg_ans, pos_ans )
-    D.quiz.add(qid, question_id)
-    D.answer.new(sid, question_id, answer)        
+    question_id = db.question.new( question, neg_ans, pos_ans )
+    db.quiz.add(qid, question_id)
+    db.answer.new(sid, question_id, answer)        
     return redirect("/#create")
 

@@ -1,4 +1,4 @@
-from app import app, D
+from app import app, db
 from flask import render_template,session,request,redirect
 from routes.tools import rows2dicts, get_alert, get_nick, generate_link, csrf_check
 
@@ -18,7 +18,7 @@ def create():
                 alert=get_alert(),
                 nick=get_nick()
             )
-    if D.quiz.get_link(session["quiz_id"]):
+    if db.quiz.get_link(session["quiz_id"]):
         return render_template(
                 "create.html",
                 caller="create",
@@ -33,7 +33,7 @@ def create():
             nick=get_nick(),
             quiz_set=True,
             questions=rows2dicts(
-                D.quiz.questions(session["quiz_id"]),
+                db.quiz.questions(session["quiz_id"]),
                 ['i','q','n','p','a']
             )
         )
@@ -46,7 +46,7 @@ def new_quiz():
         session["alert"]="Tarvitset nimimerkin loudaksesi."
         return redirect("/#create")
     user_id = session["id"]
-    session["quiz_id"] = D.quiz.new( user_id )
+    session["quiz_id"] = db.quiz.new( user_id )
     return redirect("/#create")
 
 
@@ -57,10 +57,10 @@ def quiz_ready():
     if "quiz_id" not in session.keys():
         session["alert"] = "Kyselmä jota ei ole aloitettu ei voi olla valmis."
         return redirect("/#create")
-    if not D.quiz.user(session["quiz_id"], session["id"]):
+    if not db.quiz.user(session["quiz_id"], session["id"]):
         session["alert"] = "Tyhjän kyselmän luominen ei käy päinsä!"
         return redirect("/#create")
     quiz_id = session["quiz_id"]
     session["answer_id"] = session["quiz_id"]
-    D.quiz.set_link(session["quiz_id"], generate_link())
+    db.quiz.set_link(session["quiz_id"], generate_link())
     return redirect("/#analyse")
