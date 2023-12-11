@@ -3,42 +3,42 @@
 
 ## TO GET IT RUNNING:
 
-#### Install postgresql for local user & get it running (as in course material)
-- $ wget https://github.com/hy-tsoha/local-pg/raw/master/pg-install.sh
-- $ bash pg-install.sh
-- $ postrgres &
+#### Install postgresql for local user & get it running [as in course material](https://hy-tsoha.github.io/materiaali/osa-2/)
+- `wget https://github.com/hy-tsoha/local-pg/raw/master/pg-install.sh`
+- `bash pg-install.sh`
+- `postrgres &`
 
 #### Clone the source
-- $ git clone https://github.com/triionhe/kyselma.git
-- $ cd kyselma
+- `git clone https://github.com/triionhe/kyselma`
+- `cd kyselma`
 
 #### Get database ready
-- $ psql < SCHEMA.sql (BE CAREFUL! This drops some tables.)
+- `psql < SCHEMA.sql` (BE CAREFUL! This drops some tables.)
 	
 #### Either use (1) poetry or (2) venv to handle dependencies and run the app
 
 (1) Install poetry if nessesary. (refer your distro)
-- $ pip install --user poetry
-- $ pipx install poetry
+- `pip install --user poetry`
+- `pipx install poetry`
 
 (1) Install dependencies
-- $ PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --no-root
+- `PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --no-root`
 
 (1) Start the app in poetry virtual environment
-- $ poetry run flask run
+- `poetry run flask run`
 
 (2) Activate venv environment
-- $ python3 -m venv venv
-- $ source venv/bin/activate
+- `python3 -m venv venv`
+- `source venv/bin/activate`
 
 (2) Install dependencies with pip
-- $ pip install -r ./requirements.txt
+- `pip install -r ./requirements.txt`
 
 (2) Start the app
-- $ flask run
+- `flask run`
 
 #### Surf to the webpage 
-- $ firefox http://127.0.0.1:5000/
+- `firefox http://127.0.0.1:5000/`
 
 There is ready made kyselmä named 'kysdemo' for testing.
 
