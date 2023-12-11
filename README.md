@@ -1,29 +1,28 @@
 # kyselma
 	Kyselmä - kysele, vastaile ja tutki tuloksia
 
-TO GET IT RUNNING:
+## TO GET IT RUNNING:
 
-Install postgresql for local user & get it running (as in course material)
+#### Install postgresql for local user & get it running (as in course material)
 - $ wget https://github.com/hy-tsoha/local-pg/raw/master/pg-install.sh
 - $ bash pg-install.sh
 - $ postrgres &
 
-Clone the source
+#### Clone the source
 - $ git clone https://github.com/triionhe/kyselma.git
 - $ cd kyselma
 
-Get database ready
+#### Get database ready
 - $ psql < SCHEMA.sql (BE CAREFUL! This drops some tables.)
 	
-Either use (1) poetry or (2) venv to handle dependencies and run the app
+#### Either use (1) poetry or (2) venv to handle dependencies and run the app
 
 (1) Install poetry if nessesary. (refer your distro)
 - $ pip install --user poetry
 - $ pipx install poetry
 
 (1) Install dependencies
-- $ export PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring (Just in case..)
-- $ poetry install --no-root
+- $ PYTHON_KEYRING_BACKEND=keyring.backends.fail.Keyring poetry install --no-root
 
 (1) Start the app in poetry virtual environment
 - $ poetry run flask run
@@ -38,8 +37,8 @@ Either use (1) poetry or (2) venv to handle dependencies and run the app
 (2) Start the app
 - $ flask run
 
-Surf to the webpage and start two sessions for better testing
-- $ firefox http://localhost:5000/ http://127.0.0.1:5000/
+#### Surf to the webpage 
+- $ firefox http://127.0.0.1:5000/
 
 There is ready made kyselmä named 'kysdemo' for testing.
 
@@ -47,7 +46,9 @@ There is ready made kyselmä named 'kysdemo' for testing.
 
 
 
-DONE:
+## DONE:
+- Tyhjien kysymysten laatiminen ei onnistu
+- Linkin kyselyyn voi kopioida leikepöydälle
 - Tietoturvaseikat: CSRF suojaus
 - Eniten ja vähiten yhdenmukaiset vastaajat
 - Parempi ulkoasu
@@ -70,20 +71,23 @@ DONE:
 - Virheviestien kuljetus
 - Nettisivurunko
 
-TODO:
+## TODO:
 - Moderointi
+
 ...
+
+## Kuvaus:
 
 Tarkoitus on luoda sivu jossa voi luoda kysymyksiä ja kyselyitä, joita
 täytetään anonyymillä nimimerkillä.
 
 Käyttäjä luo ensin kyselyn ja antaa omat vastauksensa.
 
-Käyttäjän luonti:
+### Käyttäjän luonti:
 - Tässä ohjelmassa ei ole käyttäjiä vaan ainoastaan nimimerkkejä
 - Nimimerkki on sessiokohtainen ja enempi vähempi pysyvä
 
-Kyselyn luonti:
+### Kyselyn luonti:
 - Käyttäjä kirjoittaa kysymyksen
 - Käyttäjä valistee kysymykseen sopivat vastinparit
 - Käyttäjä vastaa itse kysymykseensä
@@ -92,16 +96,16 @@ Kyselyn luonti:
 
 Vastausvaihtoehdot on muunnettavissa luvuiksi, joita voi vertailla.
 
-Esimerkkivastinpareja:
+### Esimerkkivastinpareja:
 - kyllä vs ei
 - samaa mieltä vs eri mieltä
 - vaihtoehto1 vs vaihtoehto2
 
-Kyselytila:
+### Kyselytila:
 - Käyttäjä 2 saa käyttäjän 1 esittämät kysymykset vastattavakseen
 - Vastattuaan kysymyksiin käyttäjä 2 siirretään tarkastelu tilaan
 
-Tarkastelutila:
+### Tarkastelutila:
 - Tilassa näkyy kutsulinkki ja koodi, jolla käyttäjä voi kutsua toisen
 - Tilassa voi valita monta eri moodia:
 	1. Eniten omia vastauksia mukaileva käyttäjä
@@ -110,7 +114,7 @@ Tarkastelutila:
 - Kaikissa moodeissa vertaillaan vastauksia/keskiarvoa omiin
 - Jokainen moodi näyttää myös yhtenäisyysprosentin
 
-Yhtenäisyysprosentti:
+### Yhtenäisyysprosentti:
 - Tismalleen samat vastaukset antaa 100%
 - Tismalleen eri ääripäiden vastaukset antaa 0%
 - Jos vastausten välinen etäisyys koko skaalalla on 10% niin se antaa 90%
@@ -118,15 +122,15 @@ Yhtenäisyysprosentti:
 - Kyselyn yhtenäisyysprosentti on keskiarvo kaikkien kysymysten prosenteista
 
 
-Moderointitila:
+### Moderointitila:
 - poista kysely kutsukoodilla
 - esti kysely hakusanalla positettavasksi
 
 
-Kysymykset, kyselyt, vastaukset tallennetaan asianmukaisiin tauluihin.
+### Kysymykset, kyselyt, vastaukset tallennetaan asianmukaisiin tauluihin.
 
 
-Ominaisuuksia joiden tekemistä voi harkita:
+### Ominaisuuksia joiden tekemistä voi harkita:
 - Jokaisella kyselyllä on elinikä jonka jälkeen ne siivotaan.
 - Kysymyksiin voi liittää kuvia
 
