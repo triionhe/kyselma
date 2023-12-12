@@ -45,6 +45,11 @@
             "pageTitle": "Luodaanko uusi kyselmä?",
             "URL": "pages/quiz.html",
             "hidden": "yes"
+        },
+        "nick_reset": {
+            "pageTitle": "Resetoidaanko nimimerkki?",
+            "URL": "pages/nick_reset.html",
+            "hidden": "yes"
         }
     }
 }

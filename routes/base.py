@@ -23,12 +23,22 @@ def info():
             alert=get_alert()
         )
         
+@app.route("/pages/nick_reset.html")
+def nick_reset():
+    if "id" in session:
+        return render_template(
+                "nick_reset.html",
+                caller="info",
+                nick=get_nick()
+            )
+    return redirect("/")
+        
 @app.route("/set/nick",methods=["POST"])
 def new_nick():
     next = "/#"+request.form["caller"] if "caller" in request.form else "/"
     if csrf_check():
         return redirect(next)
-    if "id" in session.keys():
+    if "id" in session.keys() and "reset" not in request.form:
         session["alert"]="Sinulla on jo nimimerkki. Käytä sitä."
         return redirect(next)
     if "nick" not in request.form or request.form["nick"]=="":
