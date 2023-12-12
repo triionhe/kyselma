@@ -47,6 +47,7 @@ There is ready made kyselmä named 'kysdemo' for testing.
 
 
 ## DONE:
+- Nimimerkin resetointi nimimerkistä 5s painamalla
 - Tyhjien kysymysten laatiminen ei onnistu
 - Linkin kyselyyn voi kopioida leikepöydälle
 - Tietoturvaseikat: CSRF suojaus
